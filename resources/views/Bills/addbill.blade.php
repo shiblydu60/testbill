@@ -34,6 +34,22 @@
             <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" />
         </div>
 
+        <div class="position-relative form-group">
+            <label for="project" class="">Project</label>
+            <select name="project" id="project" class="form-control">
+                <?php 
+                    foreach($projects as $p) {
+                        echo "<option value='$p->id'>$p->name</option>";
+                    }
+                ?>
+            </select>
+        </div>
+
+        <div class="position-relative form-group">
+            <label for="comment" class="">Comment</label>
+            <textarea name="comment" id="comment" class="form-control"></textarea>
+        </div>
+
         <button class="mt-1 btn btn-primary">Submit</button>
     </form>
 @endsection

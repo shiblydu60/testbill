@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\BillController;
 /*
 |--------------------------------------------------------------------------
@@ -31,6 +32,8 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('/bills/{id}/edit', [BillController::class, 'edit'])->name('edit')->middleware('auth');
     Route::post('/bills/{id}/update', [BillController::class, 'update'])->name('update')->middleware('auth');
     Route::post('/reports_with_date', [BillController::class, 'reports_with_date'])->name('reports_with_date')->middleware('auth');
+    Route::get('/addproject', [ProjectController::class, 'addproject'])->name('addproject')->middleware('auth');
+    Route::post('/storeproject', [ProjectController::class, 'storeproject'])->name('storeproject')->middleware('auth');
 });
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');

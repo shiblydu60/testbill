@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Bill;
+use App\Models\Project;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 
@@ -19,7 +20,9 @@ class BillController extends Controller
      * 
     */
     public function addbill() {
-        return view('Bills.addbill');
+        $projects=Project::all();
+        //dd($projects);
+        return view('Bills.addbill', ['projects' => $projects]);
     }
 
     public function storebill(Request $request) {
@@ -38,6 +41,8 @@ class BillController extends Controller
         $obj->amount=$request->input('amount');
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
+        $obj->project_id=$request->input('project');
+        $obj->comment=$request->input('comment');
         $obj->save();
         return view('Bills.storebill');
     }

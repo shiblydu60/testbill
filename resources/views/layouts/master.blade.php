@@ -199,6 +199,21 @@
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
+                                    Projects
+                                    
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="/addproject">
+                                            <i class="metismenu-icon">
+                                            </i>Add Project
+                                        </a>
+                                    </li>                                    
+                                </ul>
+                            </li>
+                            <li class="mm-active">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-credit"></i>
                                     Bill Management
                                     
                                 </a>

@@ -18,11 +18,12 @@ class CreateTransportBillsTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->dateTime('bill_date', $precision = 0);
-            $table->integer('amount');
+            $table->double('amount', 12, 2);
             $table->string('source');
             $table->string('destination');
             $table->string('file_location')->nullable();
             $table->integer('project_id')->nullable();
+            $table->text('comment')->nullable();
             $table->timestamps();
         });
     }
