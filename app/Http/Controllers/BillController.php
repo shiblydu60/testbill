@@ -113,4 +113,10 @@ class BillController extends Controller
         $obj->save();
         return view('Bills.storebilladmin');
     }
+
+    public function reportsuser(Request $request) {
+        $aid=Auth::id();
+        $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->paginate(15);
+        return view('Bills.reportsuser', ['bills' => $bills]);
+    }
 }

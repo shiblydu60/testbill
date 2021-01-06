@@ -196,6 +196,7 @@
                                 </ul>
                             </li>
                             <?php } ?>
+                            @if (Auth::user()->email == 'superadmin@admin.com')
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
@@ -208,9 +209,10 @@
                                             <i class="metismenu-icon">
                                             </i>Add Project
                                         </a>
-                                    </li>                                    
+                                    </li>
                                 </ul>
                             </li>
+                            @endif
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
@@ -223,13 +225,11 @@
                                             <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>
                                         @else
                                             <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>
-                                        @endif                                        
+                                        @endif
                                     </li>                                    
                                 </ul>
                             </li>
-                            <?php 
-                                if(Auth::user()->email=='superadmin@admin.com') {                                
-                            ?>
+                            
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-note2"></i>
@@ -238,14 +238,16 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="/reports">
-                                            <i class="metismenu-icon">
-                                            </i>Reports
-                                        </a>
+                                        @if (Auth::user()->email == 'superadmin@admin.com')
+                                            <a href="/reports"><i class="metismenu-icon"></i>Reports</a>
+                                        @else
+                                            <a href="/reportsuser"><i class="metismenu-icon"></i>Reports</a>
+                                        @endif
+                                        
                                     </li>                                    
                                 </ul>
                             </li>
-                            <?php } ?>
+                            
 
                             <li class="app-sidebar__heading">Exit</li>
                             <li class="mm-active" >

@@ -40,3 +40,4 @@ Route::group(['middleware' => ['role:superadmin']], function () {
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');
 Route::post('/storebill', [BillController::class, 'storebill'])->name('storebill')->middleware('auth');
+Route::get('/reportsuser', [BillController::class, 'reportsuser'])->name('reportsuser')->middleware('auth');
