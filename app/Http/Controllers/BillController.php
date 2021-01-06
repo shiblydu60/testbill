@@ -82,16 +82,19 @@ class BillController extends Controller
         }
         else {
             $bills = DB::table('transport_bills')->paginate(15);
-        }        
+        }
         //dd($bills);
         
         return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
     }
 
     public function edit($id) {
-        $bill=Bill::findOrFail($id);
-        //dd($bill->bill_date);
-        return view('Bills.edit', ['bill'=>$bill]);
+        $projects=Project::all();
+        $users=User::all();
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+        //dd($bill->project->name);
+        //dd($bill->user->first_name);
+        return view('Bills.edit', ['bill'=>$bill, 'projects'=>$projects, 'users'=>$users]);
     }
 
     public function update(Request $request, $id) {
@@ -103,6 +106,8 @@ class BillController extends Controller
         $obj->amount=$request->input('amount');
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
+        $obj->project_id=$request->input('project');
+        $obj->user_id=$request->input('userid');
         $obj->save();
         return view('Bills.update');
     }

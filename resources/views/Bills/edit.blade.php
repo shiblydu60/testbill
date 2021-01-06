@@ -24,6 +24,30 @@
             <label for="destination" class="">Destination</label>
             <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" value="<?php echo $bill->destination; ?>" />
         </div>
+        <label for="project" class="">Projects</label>
+        <select multiple="" name="project" id="project" class="form-control">
+            <?php 
+                foreach($projects as $p) {
+                    if($p->id==$bill->project->id) {
+                        echo "<option selected='true' value='$p->id'>$p->name</option>";
+                    } else {
+                        echo "<option value='$p->id'>$p->name</option>";
+                    }                    
+                }
+            ?>
+        </select>
+        <label for="user" class="">Users</label>
+        <select multiple="" name="userid" id="userid" class="form-control">
+            <?php 
+                foreach($users as $u) {
+                    if($u->id==$bill->user->id) {
+                        echo "<option selected='true' value='$u->id'>$u->first_name $u->last_name</option>";
+                    } else {
+                        echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
+                    }                    
+                }
+            ?>
+        </select>
 
         <button class="mt-1 btn btn-primary">Submit</button>
     </form>
