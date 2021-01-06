@@ -29,9 +29,9 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::post('/users/{id}/update', [UserController::class, 'update'])->name('updateuser')->middleware('auth');
     Route::get('/users/{id}/delete', [UserController::class, 'delete'])->name('deleteuser')->middleware('auth');
     Route::get('/reports', [BillController::class, 'reports'])->name('reports')->middleware('auth');
+    Route::post('/reports_with_params_admin', [BillController::class, 'reports_with_params_admin'])->name('reports_with_params_admin')->middleware('auth');
     Route::get('/bills/{id}/edit', [BillController::class, 'edit'])->name('edit')->middleware('auth');
-    Route::post('/bills/{id}/update', [BillController::class, 'update'])->name('update')->middleware('auth');
-    Route::post('/reports_with_date', [BillController::class, 'reports_with_date'])->name('reports_with_date')->middleware('auth');
+    Route::post('/bills/{id}/update', [BillController::class, 'update'])->name('update')->middleware('auth');    
     Route::get('/addproject', [ProjectController::class, 'addproject'])->name('addproject')->middleware('auth');
     Route::post('/storeproject', [ProjectController::class, 'storeproject'])->name('storeproject')->middleware('auth');
     Route::get('/addbilladmin', [BillController::class, 'addbilladmin'])->name('addbilladmin')->middleware('auth');
@@ -41,3 +41,4 @@ Route::group(['middleware' => ['role:superadmin']], function () {
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');
 Route::post('/storebill', [BillController::class, 'storebill'])->name('storebill')->middleware('auth');
 Route::get('/reportsuser', [BillController::class, 'reportsuser'])->name('reportsuser')->middleware('auth');
+Route::post('/reports_with_params_user', [BillController::class, 'reports_with_params_user'])->name('reports_with_params_user')->middleware('auth');

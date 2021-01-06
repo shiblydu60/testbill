@@ -49,8 +49,43 @@ class BillController extends Controller
     }
 
     public function reports() {
+        $projects=Project::all();
+        $users=User::all();
         $bills = DB::table('transport_bills')->paginate(15);
-        return view('Bills.reports', ['bills'=>$bills]);
+        return view('Bills.reports', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
+    }
+
+    public function reports_with_params_admin(Request $request) {
+        $projects=Project::all();
+        $users=User::all();
+        //dd($request->all());           
+        $billDate_from=$request->input('billDate_from');
+        $date = new DateTime($billDate_from);
+        $d1=$date->format('Y-m-d H:i:s');
+        $billDate_to=$request->input('billDate_to');
+        $date = new DateTime($billDate_to);
+        $d2=$date->format('Y-m-d H:i:s');
+        $userid=$request->input('userid');
+        $projectid=$request->input('project');
+        //dd($request->all());
+        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && !empty($request->input('userid')) ) {
+            $bills = DB::table('transport_bills')->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->paginate(15);
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && !empty($request->input('userid')) ) {
+            $bills = DB::table('transport_bills')->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && empty($request->input('userid')) ) {
+            $bills = DB::table('transport_bills')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->paginate(15);
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && empty($request->input('userid')) ) {
+            $bills = DB::table('transport_bills')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
+        }
+        else {
+            $bills = DB::table('transport_bills')->paginate(15);
+        }        
+        //dd($bills);
+        
+        return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
     }
 
     public function edit($id) {
@@ -70,19 +105,6 @@ class BillController extends Controller
         $obj->destination=$request->input('destination');
         $obj->save();
         return view('Bills.update');
-    }
-
-    public function reports_with_date(Request $request) {
-        //dd($request->all());           
-        $billDate_from=$request->input('billDate_from');
-        $date = new DateTime($billDate_from);
-        $d1=$date->format('Y-m-d H:i:s');
-        $billDate_to=$request->input('billDate_to');
-        $date = new DateTime($billDate_to);
-        $d2=$date->format('Y-m-d H:i:s');
-        $bills = DB::table('transport_bills')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
-        //dd($bills);
-        return view('Bills.reports_with_date', ['bills'=>$bills]);
     }
 
     public function addbilladmin() {
@@ -114,9 +136,32 @@ class BillController extends Controller
         return view('Bills.storebilladmin');
     }
 
-    public function reportsuser(Request $request) {
+    public function reportsuser() {
+        $projects=Project::all();
         $aid=Auth::id();
         $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->paginate(15);
-        return view('Bills.reportsuser', ['bills' => $bills]);
+        return view('Bills.reportsuser', ['bills' => $bills, 'projects' => $projects]);
+    }
+
+    public function reports_with_params_user(Request $request) {
+        $projects=Project::all();
+        $aid=Auth::id();
+        $project=$request->input('project');
+        $billDate_from=$request->input('billDate_from');
+        $date = new DateTime($billDate_from);
+        $d1=$date->format('Y-m-d H:i:s');
+        $billDate_to=$request->input('billDate_to');
+        $date = new DateTime($billDate_to);
+        $d2=$date->format('Y-m-d H:i:s');
+        //dd($request->all());
+        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) ) {
+            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $project)->paginate(15);
+        } else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project'))) {
+            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
+        } else {
+            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->paginate(15);
+        }        
+        //dd($bills);
+        return view('Bills.reports_with_params_user', ['bills'=>$bills, 'projects'=>$projects]);
     }
 }

@@ -21,7 +21,7 @@
                     foreach($users as $u) {
                         echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
                     }
-                ?>                
+                ?>
             </select>
         </div>
 
