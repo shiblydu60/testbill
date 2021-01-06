@@ -219,17 +219,16 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        <a href="/addbill">
-                                            <i class="metismenu-icon">
-                                            </i>Add Bill
-                                        </a>
+                                        @if (Auth::user()->email == 'superadmin@admin.com')
+                                            <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>
+                                        @else
+                                            <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>
+                                        @endif                                        
                                     </li>                                    
                                 </ul>
                             </li>
                             <?php 
-                                if(Auth::user()->email=='superadmin@admin.com') {
-
-                                
+                                if(Auth::user()->email=='superadmin@admin.com') {                                
                             ?>
                             <li class="mm-active">
                                 <a href="#">

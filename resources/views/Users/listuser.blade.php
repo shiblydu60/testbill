@@ -19,7 +19,9 @@
                     <td> {{ $user->last_name }}</td>
                     <td> {{ $user->email }}</td>
                     <td><a href="/users/{{ $user->id }}/edit">Edit</a>&nbsp
-                    <a href="/users/{{ $user->id }}/delete">Delete</a></td>
+                    @if ($user->email != 'superadmin@admin.com')
+                        <a href="/users/{{ $user->id }}/delete">Delete</a></td>
+                    @endif                    
                 </tr>
             @endforeach
         </tbody>       
