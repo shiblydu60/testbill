@@ -28,4 +28,31 @@ class ProjectController extends Controller
         $request->session()->flash('message', 'Project saved successfully.');
         return view("Projects.storeproject");
     }
+
+    public function listproject() {
+        $projects=Project::paginate(15);
+        //dd($projects);
+        return view('Projects.listproject', ['projects' => $projects]);
+    }
+
+    public function edit($id) {
+        $project=Project::findOrFail($id);
+        //dd($project);
+        return view('Projects.edit', ['project'=>$project]);
+    }
+
+    public function update(Request $request, $id) {
+        $project=Project::findOrFail($id);
+        //dd($request->all());
+        $project->name=$request->input('projectName');
+        $project->description=$request->input('description');
+        $project->save();
+        return view('Projects.update');
+    }
+
+    public function delete($id) {
+        $project=Project::findOrFail($id);
+        $project->delete();
+        return view('Projects.delete');
+    }
 }

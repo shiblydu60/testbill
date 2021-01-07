@@ -169,4 +169,15 @@ class BillController extends Controller
         //dd($bills);
         return view('Bills.reports_with_params_user', ['bills'=>$bills, 'projects'=>$projects]);
     }
+
+    public function listbill() {
+        $bills=Bill::paginate(15);
+        return view('Bills.listbill', ['bills' => $bills]);
+    }
+
+    public function listbilluser() {
+        $aid=Auth::id();
+        $bills = Bill::where('user_id', '=', $aid)->paginate(15);        
+        return view('Bills.listbilluser', ['bills' => $bills]);
+    }
 }

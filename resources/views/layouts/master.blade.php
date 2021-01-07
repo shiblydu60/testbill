@@ -196,10 +196,16 @@
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
-                                    Projects
+                                    Project Management
                                     
                                 </a>
                                 <ul>
+                                    <li>
+                                        <a href="/listproject">
+                                            <i class="metismenu-icon">
+                                            </i>List Project
+                                        </a>
+                                    </li>
                                     <li>
                                         <a href="/addproject">
                                             <i class="metismenu-icon">
@@ -219,8 +225,10 @@
                                     <li>
                                         @if (Auth::user()->email == 'superadmin@admin.com')
                                             <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>
+                                            <a href="/listbill"><i class="metismenu-icon"></i>List Bill</a>
                                         @else
                                             <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>
+                                            <a href="/listbilluser"><i class="metismenu-icon"></i>List Bill</a>
                                         @endif
                                     </li>                                    
                                 </ul>
