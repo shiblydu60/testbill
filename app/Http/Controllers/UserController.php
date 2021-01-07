@@ -76,6 +76,7 @@ class UserController extends Controller
         $obj->last_name=$request->input('lastName');
         $obj->email=$request->input('email');
         $obj->password=bcrypt($request->input('password'));
+        $obj->isactive=1;
         $obj->save();
         $email=$request->input('email');
         $role=$request->input('role');
@@ -116,13 +117,46 @@ class UserController extends Controller
 
     public function delete($id) {
         //dd('delete user');
-        $obj=User::with('roles')->findOrFail($id);
-        //dd($obj);
+        $obj=User::with(['roles', 'bills'])->findOrFail($id);
+        //dd($obj->bills->all());
+        if(count($obj->bills->all())>0) {
+            return view('Users.archive', ['id' => $id]);
+        } else {
+            $old_role=$obj->roles->first()->name;
+            $email=$obj->email;
+            $user = User::where('email', $email)->first();
+            $user->removeRole($old_role);
+            $obj->delete();
+            return view('Users.delete');
+        }
+        //dd(count($obj->bills->all()) );
+        /*
         $old_role=$obj->roles->first()->name;
         $email=$obj->email;
         $user = User::where('email', $email)->first();
         $user->removeRole($old_role);
         $obj->delete();
         return view('Users.delete');
+        */
+    }
+
+    public function archiveuser(Request $request, $id) {
+        $obj=User::with(['roles', 'bills'])->findOrFail($id);
+        //dd($obj);
+        if($request->has('yes')) {
+            $yes=$request->input('yes');
+            $old_role=$obj->roles->first()->name;
+            $email=$obj->email;
+            $user = User::where('email', $email)->first();
+            $user->removeRole($old_role);
+            $obj->delete();
+            return view('Users.delete');
+        } else {
+            $no=$request->input('no');
+            $obj->isactive=0;
+            $obj->save();
+            return view('Users.archived');
+        }
+        
     }
 }

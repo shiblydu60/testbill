@@ -36,6 +36,7 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::post('/storeproject', [ProjectController::class, 'storeproject'])->name('storeproject')->middleware('auth');
     Route::get('/addbilladmin', [BillController::class, 'addbilladmin'])->name('addbilladmin')->middleware('auth');
     Route::post('/storebilladmin', [BillController::class, 'storebilladmin'])->name('storebilladmin')->middleware('auth');
+    Route::post('/archiveuser/{id}', [UserController::class, 'archiveuser'])->name('archiveuser')->middleware('auth');
 });
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');
