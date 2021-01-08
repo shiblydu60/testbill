@@ -58,6 +58,14 @@
                     <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                 </tr>            
             @endforeach
+            <tr>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>       
     </table>            
     

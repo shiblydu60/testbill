@@ -67,6 +67,7 @@ class UserController extends Controller
         $validated = $request->validate([
             'firstName' => 'required',
             'lastName' => 'required',
+            'designation' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required',
             'role' => 'required',
@@ -74,6 +75,7 @@ class UserController extends Controller
         $obj=new User();
         $obj->first_name=$request->input('firstName');
         $obj->last_name=$request->input('lastName');
+        $obj->designation=$request->input('designation');
         $obj->email=$request->input('email');
         $obj->password=bcrypt($request->input('password'));
         $obj->isactive=1;
@@ -103,6 +105,7 @@ class UserController extends Controller
         //dd($old_role);
         $obj->first_name=$request->input('firstName');
         $obj->last_name=$request->input('lastName');
+        $obj->designation=$request->input('designation');
         $obj->email=$request->input('email');
         $obj->password=bcrypt($request->input('password'));        
         $obj->save();        

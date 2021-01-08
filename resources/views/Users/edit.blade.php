@@ -15,13 +15,18 @@
         </div>
 
         <div class="position-relative form-group">
+            <label for="designation" class="">Designation</label>
+            <input name="designation" id="designation" placeholder="Designation" type="text" class="form-control" value="<?php echo $user->designation; ?>" />
+        </div>
+
+        <div class="position-relative form-group">
             <label for="userEmail" class="">Email</label>
             <input name="email" id="userEmail" placeholder="Email" type="email" class="form-control" value="<?php echo $user->email; ?>" />
         </div>
 
         <div class="position-relative form-group">
             <label for="userPassword" class="">Password</label>
-            <input name="password" id="userPassword" placeholder="Password" type="password" class="form-control" value="<?php echo $user->password;  ?>" />
+            <input name="password" id="userPassword" placeholder="Password" type="password" class="form-control" value="" />
         </div>
 
         <div class="position-relative form-group">

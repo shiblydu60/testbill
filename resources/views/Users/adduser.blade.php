@@ -24,6 +24,11 @@
         </div>
 
         <div class="position-relative form-group">
+            <label for="designation" class="">Designation</label>
+            <input name="designation" id="designation" placeholder="Designation" type="text" class="form-control" />
+        </div>
+
+        <div class="position-relative form-group">
             <label for="userEmail" class="">Email</label>
             <input name="email" id="userEmail" placeholder="Email" type="email" class="form-control" />
         </div>
@@ -38,7 +43,9 @@
             <select name="role" id="role" class="form-control">
                 <?php 
                     foreach($roles as $r) {
-                        echo "<option>$r->name</option>";
+                        if($r->name != 'superadmin') {
+                            echo "<option>$r->name</option>";
+                        }
                     }
                 ?>
             </select>
