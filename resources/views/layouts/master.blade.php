@@ -224,11 +224,11 @@
                                 <ul>
                                     <li>
                                         @if (Auth::user()->email == 'superadmin@admin.com')
-                                            <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>
                                             <a href="/listbill"><i class="metismenu-icon"></i>List Bill</a>
+                                            <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>                                            
                                         @else
-                                            <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>
                                             <a href="/listbilluser"><i class="metismenu-icon"></i>List Bill</a>
+                                            <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>                                            
                                         @endif
                                     </li>                                    
                                 </ul>
@@ -266,7 +266,11 @@
             </div>    
             <div class="app-main__outer">
                 <div class="app-main__inner">
-                    @yield('content')              
+                    <div class="main-card mb-3 card">
+                        <div class="card-body">
+                            @yield('content')
+                        </div>
+                    </div>
                 </div>
                 <div class="app-wrapper-footer">
                     <div class="app-footer">
