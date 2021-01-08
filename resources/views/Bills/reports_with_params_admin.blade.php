@@ -30,13 +30,16 @@
                 ?>
             </select>
         
-            <button class="mt-1 btn btn-primary">Submit</button>
+            <button class="mt-1 btn btn-primary" value="submit">Submit</button>
+            
         </div>
     </form>
+    <a href="/exporttofileadmin<?php echo $anc; ?>" class="float-right">Export to CSV</a>
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
+                <th>Name</th>
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>
@@ -48,6 +51,7 @@
             @foreach ($bills as $bill)
                 <tr role="row" >
                     <td> {{ $bill->bill_date }}</td>
+                    <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
@@ -57,5 +61,4 @@
         </tbody>       
     </table>            
     
-    {{ $bills->links("pagination::bootstrap-4") }}
 @endsection

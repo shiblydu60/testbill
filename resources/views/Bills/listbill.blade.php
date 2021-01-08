@@ -7,6 +7,7 @@
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
+                <th>Name</th>
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>               
@@ -17,6 +18,7 @@
             @foreach ($bills as $bill)
                 <tr role="row" >
                     <td> {{ $bill->bill_date }}</td>
+                    <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>                    

@@ -48,46 +48,6 @@ class BillController extends Controller
         return view('Bills.storebill');
     }
 
-    public function reports() {
-        $projects=Project::all();
-        $users=User::all();
-        $bills = DB::table('transport_bills')->paginate(15);
-        return view('Bills.reports', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
-    }
-
-    public function reports_with_params_admin(Request $request) {
-        $projects=Project::all();
-        $users=User::all();
-        //dd($request->all());           
-        $billDate_from=$request->input('billDate_from');
-        $date = new DateTime($billDate_from);
-        $d1=$date->format('Y-m-d H:i:s');
-        $billDate_to=$request->input('billDate_to');
-        $date = new DateTime($billDate_to);
-        $d2=$date->format('Y-m-d H:i:s');
-        $userid=$request->input('userid');
-        $projectid=$request->input('project');
-        //dd($request->all());
-        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && !empty($request->input('userid')) ) {
-            $bills = DB::table('transport_bills')->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->paginate(15);
-        }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && !empty($request->input('userid')) ) {
-            $bills = DB::table('transport_bills')->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
-        }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && empty($request->input('userid')) ) {
-            $bills = DB::table('transport_bills')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->paginate(15);
-        }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && empty($request->input('userid')) ) {
-            $bills = DB::table('transport_bills')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
-        }
-        else {
-            $bills = DB::table('transport_bills')->paginate(15);
-        }
-        //dd($bills);
-        
-        return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
-    }
-
     public function edit($id) {
         $projects=Project::all();
         $users=User::all();
@@ -140,6 +100,57 @@ class BillController extends Controller
         $obj->save();
         return view('Bills.storebilladmin');
     }
+    
+    public function listbill() {
+        $bills=Bill::with(['user', 'project'])->paginate(15);
+        return view('Bills.listbill', ['bills' => $bills]);
+    }
+
+    public function listbilluser() {
+        $aid=Auth::id();
+        $bills = Bill::where('user_id', '=', $aid)->paginate(15);        
+        return view('Bills.listbilluser', ['bills' => $bills]);
+    }
+
+    public function reports() {
+        $projects=Project::all();
+        $users=User::all();
+        $bills = DB::table('transport_bills')->paginate(15);
+        return view('Bills.reports', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);
+    }
+
+    public function reports_with_params_admin(Request $request) {
+        $projects=Project::all();
+        $users=User::all();
+        //dd($request->all());           
+        $billDate_from=$request->input('billDate_from');
+        $date = new DateTime($billDate_from);
+        $d1=$date->format('Y-m-d H:i:s');
+        $billDate_to=$request->input('billDate_to');
+        $date = new DateTime($billDate_to);
+        $d2=$date->format('Y-m-d H:i:s');
+        $userid=$request->input('userid');
+        $projectid=$request->input('project');
+        //dd($request->all());
+        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && !empty($request->input('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->get();
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && !empty($request->input('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && empty($request->input('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->get();
+        }
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && empty($request->input('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+        else {
+            $bills = Bill::with(['user', 'project'])->all();
+        }
+        //dd($bills);
+        $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;
+        return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users, 'anc'=>$anc]);
+    }
 
     public function reportsuser() {
         $projects=Project::all();
@@ -160,24 +171,74 @@ class BillController extends Controller
         $d2=$date->format('Y-m-d H:i:s');
         //dd($request->all());
         if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) ) {
-            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $project)->paginate(15);
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $project)->get();
         } else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project'))) {
-            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->paginate(15);
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         } else {
-            $bills = DB::table('transport_bills')->where('user_id', '=', $aid)->paginate(15);
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->get();
         }        
         //dd($bills);
         return view('Bills.reports_with_params_user', ['bills'=>$bills, 'projects'=>$projects]);
     }
 
-    public function listbill() {
-        $bills=Bill::paginate(15);
-        return view('Bills.listbill', ['bills' => $bills]);
-    }
+    public function exporttofileadmin(Request $request) {
+        //$anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;        
 
-    public function listbilluser() {
-        $aid=Auth::id();
-        $bills = Bill::where('user_id', '=', $aid)->paginate(15);        
-        return view('Bills.listbilluser', ['bills' => $bills]);
+        $billDate_from=$request->query('billDate_from');
+        $date = new DateTime($billDate_from);
+        $d1=$date->format('Y-m-d H:i:s');
+        $billDate_to=$request->query('billDate_to');
+        $date = new DateTime($billDate_to);
+        $d2=$date->format('Y-m-d H:i:s');
+        $userid=$request->query('userid');
+        $projectid=$request->query('project');
+
+        if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && !empty($request->query('project')) && !empty($request->query('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->get();
+        }
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && empty($request->query('project')) && !empty($request->query('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && !empty($request->query('project')) && empty($request->query('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->get();
+        }
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && empty($request->query('project')) && empty($request->query('userid')) ) {
+            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+        else {
+            $bills = Bill::with(['user', 'project'])->get();
+        }
+        
+        $fileName = 'tasks.csv';
+        $tasks = $bills;
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('bill_date', 'name', 'amount', 'source', 'destination');
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                $row['bill_date']  = $task->bill_date;
+                $row['name']  = $task->user->first_name . ' ' . $task->user->last_name;
+                $row['amount']    = $task->amount;
+                $row['source']    = $task->source;
+                $row['destination']  = $task->destination;
+
+                fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination']));
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);        
     }
 }

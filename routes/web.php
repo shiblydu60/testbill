@@ -42,6 +42,7 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::post('/projects/{id}/update', [ProjectController::class, 'update'])->name('updateproject')->middleware('auth');
     Route::get('/projects/{id}/delete', [ProjectController::class, 'delete'])->name('deleteproject')->middleware('auth');
     Route::get('/listbill', [BillController::class, 'listbill'])->name('listbill')->middleware('auth');
+    Route::get('/exporttofileadmin', [BillController::class, 'exporttofileadmin'])->name('exporttofileadmin')->middleware('auth');
 });
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');
