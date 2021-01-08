@@ -42,7 +42,12 @@ class BillController extends Controller
         $obj->amount=$request->input('amount');
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
-        $obj->project_id=$request->input('project');
+        if($request->input('project')==0) {
+            $obj->project_id=1;    
+        } else {
+            $obj->project_id=$request->input('project');
+        }
+        
         $obj->comment=$request->input('comment');
         $obj->save();
         return view('Bills.storebill');
@@ -96,6 +101,11 @@ class BillController extends Controller
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
         $obj->project_id=$request->input('project');
+        if($request->input('project')==0) {
+            $obj->project_id=1;    
+        } else {
+            $obj->project_id=$request->input('project');
+        }
         $obj->comment=$request->input('comment');
         $obj->save();
         return view('Bills.storebilladmin');
@@ -180,7 +190,7 @@ class BillController extends Controller
         $d2=$date->format('Y-m-d H:i:s');
         //dd($request->all());
         if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) ) {
-            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $project)->get();
+            $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->where('project_id', '=', $projectid)->get();
         } else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project'))) {
             $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         } else {

@@ -37,6 +37,7 @@
         <div class="position-relative form-group">
             <label for="project" class="">Project</label>
             <select name="project" id="project" class="form-control">
+                <option value='0'>Select Project</option>
                 <?php 
                     foreach($projects as $p) {
                         echo "<option value='$p->id'>$p->name</option>";
