@@ -32,6 +32,7 @@
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>
+                <th>Project</th>
             </tr>
         </thead>
         <tbody>
@@ -42,8 +43,18 @@
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
-                </tr>            
+                    <td> {{ $bill->project->name }}</td>
+                </tr>
             @endforeach
+
+            <tr>
+                <td></td>
+                <td>{{ $sum }}</td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>
         </tbody>       
     </table>            
 

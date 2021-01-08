@@ -43,6 +43,7 @@
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>
+                <th>Project</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -55,12 +56,14 @@
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
+                    <td> {{ $bill->project->name }}</td>
                     <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                 </tr>            
             @endforeach
             <tr>
                 <td></td>
                 <td></td>
+                <td>{{ $sum }}</td>
                 <td></td>
                 <td></td>
                 <td></td>

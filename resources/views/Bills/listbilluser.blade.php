@@ -9,7 +9,8 @@
                 <th>Bill Date</th>
                 <th>Amount</th>
                 <th>Source</th>
-                <th>Destination</th>               
+                <th>Destination</th>
+                <th>Project</th>
             </tr>
         </thead>
         <tbody>
@@ -19,7 +20,8 @@
                     <td> {{ $bill->bill_date }}</td>
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
-                    <td> {{ $bill->destination }}</td>                    
+                    <td> {{ $bill->destination }}</td>
+                    <td> {{ $bill->project->name }}</td>
                 </tr>            
             @endforeach
         </tbody>       

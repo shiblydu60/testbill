@@ -118,7 +118,7 @@ class BillController extends Controller
 
     public function listbilluser() {
         $aid=Auth::id();
-        $bills = Bill::where('user_id', '=', $aid)->paginate(15);        
+        $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->paginate(15);        
         return view('Bills.listbilluser', ['bills' => $bills]);
     }
 
@@ -163,8 +163,13 @@ class BillController extends Controller
             $bills = Bill::with(['user', 'project'])->get();
         }
         //dd($bills);
+        $sum=0;
+        foreach($bills as $b) {
+            $sum=$sum + $b->amount;
+        }
+        //dd($sum);
         $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;
-        return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users, 'anc'=>$anc]);
+        return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users, 'anc'=>$anc, 'sum'=>$sum]);
     }
 
     public function reportsuser() {
@@ -197,8 +202,12 @@ class BillController extends Controller
             $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->get();
         }        
         //dd($bills);
+        $sum=0;
+        foreach($bills as $b) {
+            $sum=$sum + $b->amount;
+        }
         $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&projectid=" . $projectid;
-        return view('Bills.reports_with_params_user', ['bills'=>$bills, 'projects'=>$projects, 'anc'=>$anc]);
+        return view('Bills.reports_with_params_user', ['bills'=>$bills, 'projects'=>$projects, 'anc'=>$anc, 'sum'=>$sum]);
     }
 
     public function exporttofileadmin(Request $request) {
@@ -240,7 +249,7 @@ class BillController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('bill_date', 'name', 'amount', 'source', 'destination');
+        $columns = array('bill_date', 'name', 'amount', 'source', 'destination', 'project');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -252,8 +261,9 @@ class BillController extends Controller
                 $row['amount']    = $task->amount;
                 $row['source']    = $task->source;
                 $row['destination']  = $task->destination;
+                $row['project']  = $task->project->name;
 
-                fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination']));
+                fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination'], $row['project'] ));
             }
 
             fclose($file);
@@ -294,7 +304,7 @@ class BillController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('bill_date', 'amount', 'source', 'destination');
+        $columns = array('bill_date', 'amount', 'source', 'destination', 'project');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -305,8 +315,9 @@ class BillController extends Controller
                 $row['amount']    = $task->amount;
                 $row['source']    = $task->source;
                 $row['destination']  = $task->destination;
+                $row['project']  = $task->project->name;
 
-                fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination']));
+                fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project']));
             }
 
             fclose($file);
