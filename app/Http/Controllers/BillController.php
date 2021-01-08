@@ -145,7 +145,7 @@ class BillController extends Controller
             $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         }
         else {
-            $bills = Bill::with(['user', 'project'])->all();
+            $bills = Bill::with(['user', 'project'])->get();
         }
         //dd($bills);
         $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;
