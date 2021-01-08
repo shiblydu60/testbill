@@ -28,11 +28,12 @@
         <select multiple="" name="project" id="project" class="form-control">
             <?php 
                 foreach($projects as $p) {
-                    if($p->id==$bill->project->id) {
-                        echo "<option selected='true' value='$p->id'>$p->name</option>";
-                    } else {
-                        echo "<option value='$p->id'>$p->name</option>";
-                    }                    
+                        if($p->id==$bill->project->id) {
+                            echo "<option selected='true' value='$p->id'>$p->name</option>";
+                        } else {
+                            echo "<option value='$p->id'>$p->name</option>";
+                        }
+                    
                 }
             ?>
         </select>

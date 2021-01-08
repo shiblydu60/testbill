@@ -52,7 +52,7 @@ class BillController extends Controller
         $projects=Project::all();
         $users=User::all();
         $bill=Bill::with(['project', 'user'])->findOrFail($id);
-        //dd($bill->project->name);
+        //dd($projects);
         //dd($bill->user->first_name);
         return view('Bills.edit', ['bill'=>$bill, 'projects'=>$projects, 'users'=>$users]);
     }
