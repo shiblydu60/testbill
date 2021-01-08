@@ -16,7 +16,7 @@
         
         <div class="position-relative form-group">
             <label for="userid" class="">User name</label>
-            <select multiple="" name="userid" id="userid" class="form-control">
+            <select name="userid" id="userid" class="form-control">
                 <?php 
                     foreach($users as $u) {
                         echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
