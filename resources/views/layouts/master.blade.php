@@ -164,7 +164,7 @@
                         <ul class="vertical-nav-menu">
                             <li class="app-sidebar__heading">Menu</li>
                             <?php 
-                                if(Auth::user()->email=='superadmin@admin.com') {
+                                if(Auth::user()->hasRole('superadmin')) {
 
                                 
                             ?>
@@ -192,7 +192,7 @@
                                 </ul>
                             </li>
                             <?php } ?>
-                            @if (Auth::user()->email == 'superadmin@admin.com')
+                            @if (Auth::user()->hasRole('superadmin'))
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
@@ -223,7 +223,7 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        @if (Auth::user()->email == 'superadmin@admin.com')
+                                        @if (Auth::user()->hasRole('superadmin'))
                                             <a href="/listbill"><i class="metismenu-icon"></i>List Bill</a>
                                             <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>                                            
                                         @else
@@ -242,7 +242,7 @@
                                 </a>
                                 <ul>
                                     <li>
-                                        @if (Auth::user()->email == 'superadmin@admin.com')
+                                        @if (Auth::user()->hasRole('superadmin'))
                                             <a href="/reports"><i class="metismenu-icon"></i>Reports</a>
                                         @else
                                             <a href="/reportsuser"><i class="metismenu-icon"></i>Reports</a>
