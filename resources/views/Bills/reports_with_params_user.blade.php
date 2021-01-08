@@ -3,7 +3,7 @@
 @section('content')
     <h1>Reports</h1>
 
-    <form class="" method="POST" action="/reports_with_params_user" >
+    {{-- <form class="" method="POST" action="/reports_with_params_user" >
         @csrf
         <div class="position-relative form-group">
             <div>
@@ -23,7 +23,7 @@
             </select>
             <button class="mt-1 btn btn-primary">Submit</button>
         </div>
-    </form>
+    </form> --}}
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">

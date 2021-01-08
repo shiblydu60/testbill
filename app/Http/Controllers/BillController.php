@@ -120,6 +120,11 @@ class BillController extends Controller
     }
 
     public function reports_with_params_admin(Request $request) {
+        //dd($request->method());
+        $validated = $request->validate([
+            'billDate_from' => 'required',
+            'billDate_to' => 'required',            
+        ]);
         $projects=Project::all();
         $users=User::all();
         //dd($request->all());           
@@ -160,6 +165,10 @@ class BillController extends Controller
     }
 
     public function reports_with_params_user(Request $request) {
+        $validated = $request->validate([
+            'billDate_from' => 'required',
+            'billDate_to' => 'required',            
+        ]);        
         $projects=Project::all();
         $aid=Auth::id();
         $project=$request->input('project');

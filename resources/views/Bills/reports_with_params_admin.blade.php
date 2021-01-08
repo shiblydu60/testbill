@@ -2,8 +2,8 @@
 @section('title', 'Dashboard')
 @section('content')
     <h1>Reports</h1>
-
-    <form class="" method="POST" action="/reports_with_params_admin" >
+ 
+    {{-- <form class="" method="POST" action="/reports_with_params_admin" >
         @csrf
         <div class="position-relative form-group">
             <div>
@@ -33,7 +33,7 @@
             <button class="mt-1 btn btn-primary" value="submit">Submit</button>
             
         </div>
-    </form>
+    </form> --}}
     <a href="/exporttofileadmin<?php echo $anc; ?>" class="float-right">Export to CSV</a>
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>

@@ -2,7 +2,15 @@
 @section('title', 'Dashboard')
 @section('content')
     <h1>Reports</h1>
-
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form class="" method="POST" action="/reports_with_params_admin" >
         @csrf
         <div class="position-relative form-group">
