@@ -50,3 +50,4 @@ Route::post('/storebill', [BillController::class, 'storebill'])->name('storebill
 Route::get('/reportsuser', [BillController::class, 'reportsuser'])->name('reportsuser')->middleware('auth');
 Route::post('/reports_with_params_user', [BillController::class, 'reports_with_params_user'])->name('reports_with_params_user')->middleware('auth');
 Route::get('/listbilluser', [BillController::class, 'listbilluser'])->name('listbilluser')->middleware('auth');
+Route::get('/exporttofileuser', [BillController::class, 'exporttofileuser'])->name('exporttofileuser')->middleware('auth');

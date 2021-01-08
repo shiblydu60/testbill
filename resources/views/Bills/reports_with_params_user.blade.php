@@ -24,6 +24,7 @@
             <button class="mt-1 btn btn-primary">Submit</button>
         </div>
     </form> --}}
+    <a href="/exporttofileuser<?php echo $anc; ?>" class="float-right">Export to CSV</a>
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">
@@ -32,7 +33,6 @@
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>
-                <th>Action</th>
             </tr>
         </thead>
         <tbody>
@@ -44,7 +44,6 @@
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
-                    <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                 </tr>            
             @endforeach
         </tbody>       
