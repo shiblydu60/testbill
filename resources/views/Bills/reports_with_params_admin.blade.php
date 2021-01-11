@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'Reports')
 @section('content')
-    <h1>Reports</h1>
  
     {{-- <form class="" method="POST" action="/reports_with_params_admin" >
         @csrf

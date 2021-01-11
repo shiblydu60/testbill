@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'Reports')
 @section('content')
-    <h1>Reports</h1>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -22,7 +22,7 @@
                 <input name="billDate_to" id="billDate" placeholder="To Date" type="text" data-toggle="datepicker" />
             </div>
             <label for="project" class="">Projects</label>
-            <select multiple="" name="project" id="project" class="form-control" style="max-width:50%;">
+            <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
                 <?php 
                     foreach($projects as $p) {
                         echo "<option value='$p->id'>$p->name</option>";

@@ -22,7 +22,7 @@
                 <input name="billDate_to" id="billDate" placeholder="To Date" type="text" data-toggle="datepicker" />
             </div>
             <label for="project" class="">Projects</label>
-            <select multiple="" name="project" id="project" class="form-control" style="max-width:50%;">
+            <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
                 <?php 
                     foreach($projects as $p) {
                         echo "<option value='$p->id'>$p->name</option>";
@@ -30,7 +30,7 @@
                 ?>
             </select>
             <label for="user" class="">Users</label>
-            <select multiple="" name="userid" id="userid" class="form-control" style="max-width:50%;">
+            <select multiple="" name="userid[]" id="userid" class="form-control" style="max-width:50%;">
                 <?php 
                     foreach($users as $u) {
                         echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
