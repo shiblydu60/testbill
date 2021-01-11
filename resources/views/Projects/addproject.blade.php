@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'Add Project')
 @section('content')
-    <h1>Add Project</h1>
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>

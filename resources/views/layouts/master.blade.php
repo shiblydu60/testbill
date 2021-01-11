@@ -266,6 +266,22 @@
             </div>    
             <div class="app-main__outer">
                 <div class="app-main__inner">
+
+
+                    <div class="app-page-title">
+                        <div class="page-title-wrapper">
+                            <div class="page-title-heading">
+                                <div class="page-title-icon">
+                                    <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
+                                </div>
+                                <div>
+                                    @yield('heading')
+                                </div>
+                            </div>                                             
+                    
+                        </div>
+                    </div>
+                    
                     <div class="main-card mb-3 card">
                         <div class="card-body">
                             @yield('content')

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'List Bill')
 @section('content')
-    <h1>List Bill</h1>
 
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
