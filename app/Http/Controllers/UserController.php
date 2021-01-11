@@ -6,7 +6,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Spatie\Permission\Models\Role;
 use App\Models\User;
+use App\Models\Bill;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 
 class UserController extends Controller
 {
@@ -43,7 +45,10 @@ class UserController extends Controller
 
     public function dashboard() {
         //dd(Auth::user()->roles->first()->name);
-        return view('dashboard');
+        $weekBill=Bill::whereBetween('created_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('amount');
+        $monthBill=Bill::whereMonth('bill_date', date('m'))->sum('amount');
+        $yearBill=Bill::whereYear('bill_date', date('Y'))->sum('amount');
+        return view('dashboard', ['weekBill'=>$weekBill,'monthBill'=>$monthBill, 'yearBill'=>$yearBill]);
     }
 
     public function logout(Request $request) {
