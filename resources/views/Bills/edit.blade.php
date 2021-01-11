@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'Edit Bill')
 @section('content')
-    <h1>Edit Bill</h1>
     <form class="" method="POST" action="/bills/<?php echo $bill->id; ?>/update" >
         @csrf
         

@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('title', 'Dashboard')
+@section('heading', 'Edit Project')
 @section('content')
-    <h1>Edit User</h1>
     <form class="" method="POST" action="/projects/<?php echo $project->id; ?>/update" >
         @csrf
         <div class="position-relative form-group">

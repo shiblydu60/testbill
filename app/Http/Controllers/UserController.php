@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Models\Bill;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -99,6 +100,8 @@ class UserController extends Controller
 
     public function edit($id) {
         $user=User::with('roles')->findOrFail($id);
+        $password = Hash::make($user->password);
+        //dd($password);
         //dd($user->roles->first()->name);
         $roles=Role::all();
         return view('Users.edit', ['user'=>$user, 'roles'=>$roles]);
