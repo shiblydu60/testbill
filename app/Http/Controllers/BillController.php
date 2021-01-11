@@ -169,14 +169,19 @@ class BillController extends Controller
         foreach($bills as $b) {
             $sum=$sum + $b->amount;
         }
-        //dd($sum);
-        $uid=$userid[0];
-        for($i=1;$i<count($userid);$i++) {
-            $uid=$uid . ',' . $userid[$i];
+        $uid="";
+        if (!empty($userid)) {
+            $uid=$userid[0];
+            for ($i=1;$i<count($userid);$i++) {
+                $uid=$uid . ',' . $userid[$i];
+            }
         }
-        $pid=$projectid[0];
-        for($i=1;$i<count($projectid);$i++) {
-            $pid=$pid . ',' . $projectid[$i];
+        $pid=""; 
+        if (!empty($projectid)) {
+            $pid=$projectid[0];
+            for ($i=1;$i<count($projectid);$i++) {
+                $pid=$pid . ',' . $projectid[$i];
+            }
         }
         $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $uid . "&projectid=" . $pid;
         return view('Bills.reports_with_params_admin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users, 'anc'=>$anc, 'sum'=>$sum]);
@@ -217,10 +222,12 @@ class BillController extends Controller
         foreach($bills as $b) {
             $sum=$sum + $b->amount;
         }
-
-        $pid=$projectid[0];
-        for($i=1;$i<count($projectid);$i++) {
-            $pid=$pid . ',' . $projectid[$i];
+        $pid="";
+        if(!empty($projectid)) {
+            $pid=$projectid[0];
+            for($i=1;$i<count($projectid);$i++) {
+                $pid=$pid . ',' . $projectid[$i];
+            }
         }
 
         $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=$aid" . "&projectid=" . $pid;
