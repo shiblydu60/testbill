@@ -90,7 +90,9 @@ class UserController extends Controller
         $role=$request->input('role');
         $user = User::where('email', $email)->first();
         $user->assignRole($role);
-        return view('Users.storeuser');
+        $request->session()->flash('message', 'User saved successfully.');
+        return redirect()->intended('/listuser');
+        //return view('Users.storeuser');
     }
 
     public function listuser(Request $request) {

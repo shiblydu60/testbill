@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Session;
 
 class BillController extends Controller
 {
@@ -108,7 +109,9 @@ class BillController extends Controller
         }
         $obj->comment=$request->input('comment');
         $obj->save();
-        return view('Bills.storebilladmin');
+        $request->session()->flash('message', 'Bill saved successfully.');
+        return redirect()->intended('/listbilladmin');
+        //return view('Bills.storebilladmin');
     }
     
     public function listbilladmin() {
