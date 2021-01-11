@@ -11,6 +11,7 @@
                 <th>Source</th>
                 <th>Destination</th>
                 <th>Project</th>
+                <th>Comments</th>
             </tr>
         </thead>
         <tbody>
@@ -22,6 +23,7 @@
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
+                    <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                 </tr>            
             @endforeach
         </tbody>       

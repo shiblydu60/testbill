@@ -44,6 +44,7 @@
                 <th>Source</th>
                 <th>Destination</th>
                 <th>Project</th>
+                <th>Comments</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -57,6 +58,7 @@
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
+                    <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                     <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                 </tr>            
             @endforeach
@@ -64,6 +66,7 @@
                 <td></td>
                 <td></td>
                 <td>{{ $sum }}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

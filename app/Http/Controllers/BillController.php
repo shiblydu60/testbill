@@ -111,9 +111,9 @@ class BillController extends Controller
         return view('Bills.storebilladmin');
     }
     
-    public function listbill() {
+    public function listbilladmin() {
         $bills=Bill::with(['user', 'project'])->paginate(15);
-        return view('Bills.listbill', ['bills' => $bills]);
+        return view('Bills.listbilladmin', ['bills' => $bills]);
     }
 
     public function listbilluser() {

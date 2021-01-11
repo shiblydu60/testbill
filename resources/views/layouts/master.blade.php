@@ -224,7 +224,7 @@
                                 <ul>
                                     <li>
                                         @if (Auth::user()->hasRole('superadmin'))
-                                            <a href="/listbill"><i class="metismenu-icon"></i>List Bill</a>
+                                            <a href="/listbilladmin"><i class="metismenu-icon"></i>List Bill</a>
                                             <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>                                            
                                         @else
                                             <a href="/listbilluser"><i class="metismenu-icon"></i>List Bill</a>
