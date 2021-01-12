@@ -15,8 +15,8 @@
         @csrf
         
         <div class="position-relative form-group">
-            <label for="projectName" class="">Name</label>
-            <input name="projectName" id="projectName" placeholder="Name" type="text" class="form-control" />
+            <label for="projectName" class="">Project Name</label>
+            <input name="projectName" id="projectName" placeholder="Project Name" type="text" class="form-control" />
         </div>
 
         <div class="position-relative form-group">
