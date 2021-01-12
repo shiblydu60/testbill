@@ -2,15 +2,7 @@
 @section('title', 'Dashboard')
 @section('heading', 'Reports')
 @section('content')
-    @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+   
     <form class="" method="POST" action="/reports_with_params_user" >
         @csrf
         <div class="position-relative form-group">
@@ -23,7 +15,8 @@
             </div>
             <label for="project" class="">Projects</label>
             <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
-                <?php 
+                <option value='0' selected='selected'>(empty)</option>
+                <?php
                     foreach($projects as $p) {
                         echo "<option value='$p->id'>$p->name</option>";
                     }

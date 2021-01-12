@@ -32,7 +32,7 @@
             </select>
             <label for="user" class="">Users</label>
             <select multiple="" name="userid[]" id="userid" class="form-control" style="max-width:50%;">
-                <option value='0' selected>(empty)</option>
+                <option value='0' selected='selected'>(empty)</option>
                 <?php 
                     foreach($users as $u) {
                         echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
