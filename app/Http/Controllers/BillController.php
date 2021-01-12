@@ -120,6 +120,7 @@ class BillController extends Controller
     
     public function listbilladmin() {
         $bills=Bill::with(['user', 'project'])->paginate(15);
+        //dd($bills);
         return view('Bills.listbilladmin', ['bills' => $bills]);
     }
 
@@ -270,7 +271,9 @@ class BillController extends Controller
         //dd($bills);
         $sum=0;
         foreach($bills as $b) {
-            $sum=$sum + $b->amount;
+            if ($b->project->isdeleted==0) {
+                $sum=$sum + $b->amount;
+            }
         }
         $pid="";
         if(count($projectid)>0) {

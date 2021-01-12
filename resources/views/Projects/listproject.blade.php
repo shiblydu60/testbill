@@ -16,15 +16,19 @@
         <tbody>
         
             @foreach ($projects as $p)
-                <tr role="row" >
-                    <td> {{ $p->name }}</td>
-                    <td> {{ $p->description }}</td>
-                    <td> {{ $p->created_at }}</td>
-                    <td> {{ $p->bills->sum('amount') }}</td>
-                    <td><a href="/projects/{{ $p->id }}/edit">Edit</a>&nbsp
-                        {{-- <a href="/projects/{{ $p->id }}/delete">Delete</a> --}}
-                    </td>                    
-                </tr>
+                @if($p->isdeleted==0)
+                    <tr role="row" >
+                        <td> {{ $p->name }}</td>
+                        <td> {{ $p->description }}</td>
+                        <td> {{ $p->created_at }}</td>
+                        <td> {{ $p->bills->sum('amount') }}</td>
+                        <td><a href="/projects/{{ $p->id }}/edit">Edit</a>&nbsp
+                            @if($p->id!=1)
+                                <a href="/projects/{{ $p->id }}/delete">Delete</a>
+                            @endif
+                        </td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>       
     </table>            

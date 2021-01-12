@@ -24,7 +24,11 @@
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
-                    <td> {{ $bill->project->name }}</td>
+                    @if($bill->project->isdeleted==1)
+                        <td> {{ $bill->project->name }} (deleted)</td>
+                    @else
+                        <td> {{ $bill->project->name }}</td>
+                    @endif
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                 </tr>            
             @endforeach

@@ -39,14 +39,16 @@
         <tbody>
         
             @foreach ($bills as $bill)
-                <tr role="row" >
-                    <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
-                    <td> {{ $bill->amount }}</td>
-                    <td> {{ $bill->source }}</td>
-                    <td> {{ $bill->destination }}</td>
-                    <td> {{ $bill->project->name }}</td>
-                    <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
-                </tr>
+                @if($bill->project->isdeleted==0)
+                    <tr role="row" >
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
+                        <td> {{ $bill->amount }}</td>
+                        <td> {{ $bill->source }}</td>
+                        <td> {{ $bill->destination }}</td>
+                        <td> {{ $bill->project->name }}</td>
+                        <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                    </tr>
+                @endif
             @endforeach
 
             <tr>

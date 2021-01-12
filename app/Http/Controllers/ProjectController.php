@@ -25,7 +25,8 @@ class ProjectController extends Controller
         ]);
         $obj=new Project();
         $obj->name=$request->input('projectName');
-        $obj->description=$request->input('description');        
+        $obj->description=$request->input('description');
+        $obj->isdeleted=0;        
         $obj->save();
         $request->session()->flash('message', 'Project saved successfully.');
         return redirect()->intended('/listproject');
@@ -57,7 +58,8 @@ class ProjectController extends Controller
 
     public function delete(Request $request, $id) {
         $project=Project::findOrFail($id);
-        $project->delete();
+        $project->isdeleted=1;
+        $project->save();
         $request->session()->flash('message', 'Project deleted successfully.');
         //Session::flash('message', 'Project deleted successfully.');
         return redirect()->intended('/listproject');

@@ -17,7 +17,8 @@ class ProjectSeeder extends Seeder
     {
         DB::table('projects')->insert([
             'name' => 'Others',
-            'description' => 'Others',			
+            'description' => 'Others',
+            'isdeleted' => 0,
 			'created_at'=> Carbon::now(),
 			'updated_at'=> Carbon::now(),
         ]);
