@@ -76,7 +76,9 @@ class BillController extends Controller
         $obj->destination=$request->input('destination');
         $obj->project_id=$request->input('project');
         $obj->user_id=$request->input('userid');
+        $obj->comment=$request->input('comment');
         $obj->save();
+        
         return view('Bills.update');
     }
 
@@ -136,53 +138,79 @@ class BillController extends Controller
 
     public function reports_with_params_admin(Request $request) {
         //dd($request->method());
-        $validated = $request->validate([
-            'billDate_from' => 'required',
-            'billDate_to' => 'required',            
-        ]);
+        
         $projects=Project::all();
         $users=User::all();
         //dd($request->all());           
-        $billDate_from=$request->input('billDate_from');
-        $date = new DateTime($billDate_from);
-        $d1=$date->format('Y-m-d H:i:s');
+        $billDate_from=$request->input('billDate_from');        
+        if(empty($request->input('billDate_from'))) {
+            $d1="";
+        } else {
+            $date = new DateTime($billDate_from);
+            $d1=$date->format('Y-m-d H:i:s');
+        }
         $billDate_to=$request->input('billDate_to');
-        $date = new DateTime($billDate_to);
-        $d2=$date->format('Y-m-d H:i:s');
+        if(empty($request->input('billDate_to'))) {
+            $d2="";
+        } else {
+            $date = new DateTime($billDate_to);
+            $d2=$date->format('Y-m-d H:i:s');
+        }        
         $userid=[];
         $userid=$request->input('userid');
         $projectid=[];
         $projectid=$request->input('project');
+
         //dd($request->all());
-        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && !empty($request->input('userid')) ) {
+       
+        if(count($projectid)==1 && $projectid[0]==0) {
+            $projectid=[];
+        }
+        if(count($userid)==1 && $userid[0]==0) {
+            $userid=[];
+        }
+        //dd(count($projectid));
+        //DB::enableQueryLog();
+        if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && count($projectid)>0 && count($userid)>0 ) {            
             $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectid)->get();
         }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && !empty($request->input('userid')) ) {
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && count($projectid)==0 && count($userid)>0 ) {
             $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && !empty($request->input('project')) && empty($request->input('userid')) ) {
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && count($projectid)>0 && count($userid)==0 ) {
             $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectid)->get();
         }
-        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && empty($request->input('project')) && empty($request->input('userid')) ) {
+        else if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && count($projectid)==0 && count($userid)==0 ) {
             $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+
+        else if((empty($request->input('billDate_from')) || empty($request->input('billDate_to'))) && count($projectid)>0 && count($userid)>0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->whereIn('project_id', $projectid)->get();            
+        }
+        else if((empty($request->input('billDate_from')) || empty($request->input('billDate_to'))) && count($projectid)==0 && count($userid)>0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->get();
+        }
+        else if((empty($request->input('billDate_from')) || empty($request->input('billDate_to'))) && count($projectid)>0 && count($userid)==0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('project_id', $projectid)->get();
         }
         else {
             $bills = Bill::with(['user', 'project'])->get();
         }
+        //dd(DB::getQueryLog());
         //dd($bills);
         $sum=0;
         foreach($bills as $b) {
             $sum=$sum + $b->amount;
         }
         $uid="";
-        if (!empty($userid)) {
+        if (count($userid)>0) {
             $uid=$userid[0];
             for ($i=1;$i<count($userid);$i++) {
                 $uid=$uid . ',' . $userid[$i];
             }
         }
         $pid=""; 
-        if (!empty($projectid)) {
+        if (count($projectid)>0) {
             $pid=$projectid[0];
             for ($i=1;$i<count($projectid);$i++) {
                 $pid=$pid . ',' . $projectid[$i];
@@ -241,28 +269,55 @@ class BillController extends Controller
 
     public function exporttofileadmin(Request $request) {
         //$anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;        
+        
+        if(!empty($request->query('billDate_from'))) {
+            $billDate_from=$request->query('billDate_from');
+            $date = new DateTime($billDate_from);
+            $d1=$date->format('Y-m-d H:i:s');
+        } else {
+            $d1="";
+        }
+        if(!empty($request->query('billDate_to'))) {
+            $billDate_to=$request->query('billDate_to');
+            $date = new DateTime($billDate_to);
+            $d2=$date->format('Y-m-d H:i:s');
+        } else {
+            $d2="";
+        }
+        
+        if(!empty($request->query('userid'))) {
+            $userid = explode(',', $request->query('userid'));
+        } else {
+            $userid=[];
+        }
+        if(!empty($request->query('project'))) {
+            $projectid = explode(',', $request->query('project'));
+        } else {
+            $projectid=[];
+        }
+        
 
-        $billDate_from=$request->query('billDate_from');
-        $date = new DateTime($billDate_from);
-        $d1=$date->format('Y-m-d H:i:s');
-        $billDate_to=$request->query('billDate_to');
-        $date = new DateTime($billDate_to);
-        $d2=$date->format('Y-m-d H:i:s');
-        $userarray = explode(',', $request->query('userid'));
-        $projectid=$request->query('project');
-        $projectarray = explode(',', $request->query('project'));
-
-        if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && !empty($request->query('project')) && !empty($request->query('userid')) ) {
-            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userarray)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectarray)->get();
+        if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && count($projectid)>0 && count($userid)>0 ) {            
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectid)->get();
         }
-        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && empty($request->query('project')) && !empty($request->query('userid')) ) {
-            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userarray)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && count($projectid)==0 && count($userid)>0 ) {
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         }
-        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && !empty($request->query('project')) && empty($request->query('userid')) ) {
-            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectarray)->get();
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && count($projectid)>0 && count($userid)==0 ) {
+            $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectid)->get();
         }
-        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && empty($request->query('project')) && empty($request->query('userid')) ) {
+        else if(!empty($request->query('billDate_from')) && !empty($request->query('billDate_to')) && count($projectid)==0 && count($userid)==0 ) {
             $bills = Bill::with(['user', 'project'])->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        }
+
+        else if((empty($request->query('billDate_from')) || empty($request->query('billDate_to'))) && count($projectid)>0 && count($userid)>0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->whereIn('project_id', $projectid)->get();            
+        }
+        else if((empty($request->query('billDate_from')) || empty($request->query('billDate_to'))) && count($projectid)==0 && count($userid)>0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('user_id', $userid)->get();
+        }
+        else if((empty($request->query('billDate_from')) || empty($request->query('billDate_to'))) && count($projectid)>0 && count($userid)==0) {
+            $bills = Bill::with(['user', 'project'])->whereIn('project_id', $projectid)->get();
         }
         else {
             $bills = Bill::with(['user', 'project'])->get();

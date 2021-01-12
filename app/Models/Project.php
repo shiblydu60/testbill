@@ -10,4 +10,9 @@ class Project extends Model
     use HasFactory;
 
     protected $table = 'projects';
+
+    public function bills() {
+        return $this->hasMany(Bill::class);
+    }
+    
 }

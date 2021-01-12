@@ -50,6 +50,11 @@
             ?>
         </select>
 
+        <div class="position-relative form-group">
+            <label for="comment" class="">Comment</label>
+            <textarea name="comment" id="comment" class="form-control"><?php echo $bill->comment; ?></textarea>
+        </div>
+
         <button class="mt-1 btn btn-primary">Submit</button>
     </form>
 @endsection

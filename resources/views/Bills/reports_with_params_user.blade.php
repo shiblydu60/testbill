@@ -40,7 +40,7 @@
         
             @foreach ($bills as $bill)
                 <tr role="row" >
-                    <td> {{ $bill->bill_date }}</td>
+                    <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>

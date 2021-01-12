@@ -13,13 +13,13 @@ class Bill extends Model
 
     protected $table = 'transport_bills';
 
-    public function project()
-    {
+    public function project() {
         return $this->belongsTo(Project::class);
     }
 
-    public function user()
-    {
+    public function user() {
         return $this->belongsTo(User::class);
     }
+
+    
 }

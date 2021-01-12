@@ -125,7 +125,9 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
         $user->removeRole($old_role);
         $user->assignRole($role);
-        return view('Users.update');
+        $request->session()->flash('message', 'User updated successfully.');
+        return redirect()->intended('/listuser');
+        //return view('Users.update');
     }
 
     public function delete($id) {
