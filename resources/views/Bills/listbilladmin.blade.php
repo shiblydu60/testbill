@@ -2,11 +2,7 @@
 @section('title', 'Dashboard')
 @section('heading', 'List Bill')
 @section('content')
-@if(Session::has('message'))
-    <div class="alert alert-success">
-        {{Session::get('message')}}
-    </div>
-@endif
+
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">

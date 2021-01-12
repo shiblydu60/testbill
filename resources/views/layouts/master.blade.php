@@ -275,6 +275,7 @@
                                     <i class="pe-7s-medal icon-gradient bg-tempting-azure"></i>
                                 </div>
                                 <div>
+                                    
                                     @yield('heading')
                                 </div>
                             </div>                                             
@@ -284,6 +285,11 @@
                     
                     <div class="main-card mb-3 card">
                         <div class="card-body">
+                            @if(Session::has('message'))
+                                <div class="alert alert-success">
+                                    {{Session::get('message')}}
+                                </div>
+                            @endif
                             @yield('content')
                         </div>
                     </div>

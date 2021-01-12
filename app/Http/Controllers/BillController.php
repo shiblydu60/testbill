@@ -51,7 +51,9 @@ class BillController extends Controller
         
         $obj->comment=$request->input('comment');
         $obj->save();
-        return view('Bills.storebill');
+        $request->session()->flash('message', 'Bill saved successfully.');
+        return redirect()->intended('/listbilluser');
+        //return view('Bills.storebill');
     }
 
     public function edit($id) {

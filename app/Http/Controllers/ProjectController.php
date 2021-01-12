@@ -26,7 +26,7 @@ class ProjectController extends Controller
         $obj->description=$request->input('description');        
         $obj->save();
         $request->session()->flash('message', 'Project saved successfully.');
-        return view("Projects.storeproject");
+        return redirect()->intended('/listproject');
     }
 
     public function listproject() {
