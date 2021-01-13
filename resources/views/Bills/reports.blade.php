@@ -26,7 +26,9 @@
                 <option value='0' selected>(empty)</option>
                 <?php 
                     foreach($projects as $p) {
-                        echo "<option value='$p->id'>$p->name</option>";
+                        if($p->isdeleted==0) {
+                            echo "<option value='$p->id'>$p->name</option>";
+                        }
                     }
                 ?>
             </select>
