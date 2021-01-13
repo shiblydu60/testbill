@@ -118,10 +118,57 @@ class BillController extends Controller
         //return view('Bills.storebilladmin');
     }
     
-    public function listbilladmin() {
-        $bills=Bill::with(['user', 'project'])->orderBy('bill_date', 'desc')->paginate(15);
+    public function listbilladmin(Request $request) {
+        //DB::enableQueryLog();
+        /*
+        $bills = Bill::select('*')
+                  ->join('users', 'transport_bills.user_id', '=', 'users.id')
+                  ->join('projects', 'transport_bills.project_id', '=', 'projects.id')
+                  ->orderBy('users.first_name', 'DESC')
+                  ->paginate(15);
+        */
+        //dd(DB::getQueryLog());
         //dd($bills);
-        return view('Bills.listbilladmin', ['bills' => $bills]);
+        //dd($request->getRequestUri());
+        if(!empty($request->query('sort')) && !empty($request->query('orderby')) ) {
+            $sort=$request->query('sort');
+            $orderby=$request->query('orderby');            
+            //$bills=Bill::with(['user', 'project'])->orderBy($sort, $orderby)->paginate(15);
+            if($sort=='bill_date') {
+                $bills = Bill::select('*')
+                  ->join('users', 'transport_bills.user_id', '=', 'users.id')
+                  ->join('projects', 'transport_bills.project_id', '=', 'projects.id')
+                  ->orderBy('transport_bills.bill_date', $orderby)
+                  ->paginate(15);
+            }
+            if($sort=='amount') {
+                $bills = Bill::select('*')
+                  ->join('users', 'transport_bills.user_id', '=', 'users.id')
+                  ->join('projects', 'transport_bills.project_id', '=', 'projects.id')
+                  ->orderBy('transport_bills.amount', $orderby)
+                  ->paginate(15);
+            }
+            if($sort=='first_name') {
+                $bills = Bill::select('*')
+                  ->join('users', 'transport_bills.user_id', '=', 'users.id')
+                  ->join('projects', 'transport_bills.project_id', '=', 'projects.id')
+                  ->orderBy('users.first_name', $orderby)
+                  ->paginate(15);
+            }
+            
+        } else {
+            $sort="";
+            $orderby="";
+            //$bills=Bill::with(['user', 'project'])->orderBy('bill_date', 'DESC')->paginate(15);
+            $bills = Bill::select('*')
+                  ->join('users', 'transport_bills.user_id', '=', 'users.id')
+                  ->join('projects', 'transport_bills.project_id', '=', 'projects.id')
+                  ->orderBy('transport_bills.bill_date', 'DESC')
+                  ->paginate(15);
+        }
+        
+        //dd($bills);
+        return view('Bills.listbilladmin', ['bills' => $bills, 'url'=>$request->getRequestUri()]);
     }
 
     public function listbilluser() {
