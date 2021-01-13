@@ -14,6 +14,7 @@
         <meta name="msapplication-tap-highlight" content="no">
     
         <link rel="stylesheet" href="/assets/css/base.min.css">
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     </head>
     <body>               
 
@@ -308,7 +309,7 @@
 <!--SCRIPTS INCLUDES-->
 
 <!--CORE-->
-<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/metismenu"></script>
 <script src="/assets/js/scripts-init/app.js"></script>
@@ -447,6 +448,8 @@
 
 <!--Tables Init-->
 <script src="/assets/js/scripts-init/tables.js"></script>
+
+<script src="/js/custom.js"></script>
 
     </body>
 </html>
