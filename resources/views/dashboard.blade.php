@@ -7,7 +7,7 @@
         <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <div class="widget-title opacity-5 text-uppercase">Bills this week</div>
+                    <div class="widget-title opacity-5 text-uppercase">Total bills in this week (TK)</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>                            
@@ -25,7 +25,7 @@
         <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <div class="widget-title opacity-5 text-uppercase">Bills this month</div>
+                    <div class="widget-title opacity-5 text-uppercase">Total bills in this month (TK)</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>                            
@@ -43,7 +43,7 @@
         <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
             <div class="widget-chat-wrapper-outer">
                 <div class="widget-chart-content">
-                    <div class="widget-title opacity-5 text-uppercase">Bills this year</div>
+                    <div class="widget-title opacity-5 text-uppercase">Total bills in this year (TK)</div>
                     <div class="widget-numbers mt-2 fsize-4 mb-0 w-100">
                         <div class="widget-chart-flex align-items-center">
                             <div>                            

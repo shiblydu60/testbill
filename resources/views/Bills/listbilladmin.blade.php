@@ -3,18 +3,7 @@
 @section('heading', 'List Bill')
 @section('content')
 
-    Sort by: 
-    <select name="sortby" onchange="location = this.value;">
-        <option value="/listbilladmin" >Default</option>
-        <option value="/listbilladmin?sort=bill_date&orderby=ASC" @if($url=="/listbilladmin?sort=bill_date&orderby=ASC") selected @endif>Bill Date ASC</option>
-        <option value="/listbilladmin?sort=bill_date&orderby=DESC" @if($url=="/listbilladmin?sort=bill_date&orderby=DESC") selected @endif>Bill Date DESC</option>
-        <option value="/listbilladmin?sort=amount&orderby=ASC"  @if($url=="/listbilladmin?sort=amount&orderby=ASC") selected @endif>Amount ASC</option>
-        <option value="/listbilladmin?sort=amount&orderby=DESC" @if($url=="/listbilladmin?sort=amount&orderby=DESC") selected @endif>Amount DESC</option>
-        <option value="/listbilladmin?sort=first_name&orderby=ASC"  @if($url=="/listbilladmin?sort=first_name&orderby=ASC") selected @endif>Name ASC</option>
-        <option value="/listbilladmin?sort=first_name&orderby=DESC" @if($url=="/listbilladmin?sort=first_name&orderby=DESC") selected @endif>Name DESC</option>
-        
-    </select>
-    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+    <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
@@ -46,6 +35,6 @@
         </tbody>       
     </table>            
 
-    {{ $bills->links("pagination::bootstrap-4") }}
+    {{--  {{ $bills->links("pagination::bootstrap-4") }}  --}}
 
 @endsection
