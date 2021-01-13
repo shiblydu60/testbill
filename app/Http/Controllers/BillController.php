@@ -119,7 +119,7 @@ class BillController extends Controller
     }
     
     public function listbilladmin() {
-        $bills=Bill::with(['user', 'project'])->paginate(15);
+        $bills=Bill::with(['user', 'project'])->orderBy('bill_date', 'desc')->paginate(15);
         //dd($bills);
         return view('Bills.listbilladmin', ['bills' => $bills]);
     }
