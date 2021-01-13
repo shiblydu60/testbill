@@ -51,20 +51,18 @@
         <tbody>
         
             @foreach ($bills as $bill)
-                <tr role="row" >
-                    <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
-                    <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
-                    <td> {{ $bill->amount }}</td>
-                    <td> {{ $bill->source }}</td>
-                    <td> {{ $bill->destination }}</td>
-                    @if($bill->project->isdeleted==0)
+                @if($bill->project->isdeleted==0)
+                    <tr role="row" >
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
+                        <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
+                        <td> {{ $bill->amount }}</td>
+                        <td> {{ $bill->source }}</td>
+                        <td> {{ $bill->destination }}</td>
                         <td> {{ $bill->project->name }}</td>
-                    @else
-                        <td> {{ $bill->project->name }} (deleted)</td>
-                    @endif
-                    <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
-                    <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
-                </tr>            
+                        <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                        <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
+                    </tr>
+                @endif
             @endforeach
             <tr>
                 <td></td>

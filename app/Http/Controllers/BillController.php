@@ -250,7 +250,9 @@ class BillController extends Controller
         //dd($bills);
         $sum=0;
         foreach($bills as $b) {
-            $sum=$sum + $b->amount;
+            if($b->project->isdeleted==0) {
+                $sum=$sum + $b->amount;
+            }            
         }
         $uid="";
         if (count($userid)>0) {
