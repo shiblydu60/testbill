@@ -18,19 +18,17 @@
         <tbody>
         
             @foreach ($bills as $bill)
-                <tr role="row" >
-                    <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
-                    <td> {{ $bill->first_name }} {{ $bill->last_name }}</td>
-                    <td> {{ $bill->amount }}</td>
-                    <td> {{ $bill->source }}</td>
-                    <td> {{ $bill->destination }}</td>
-                    @if($bill->isdeleted==1)
-                        <td> {{ $bill->name }} (deleted)</td>
-                    @else
-                        <td> {{ $bill->name }}</td>
-                    @endif
-                    <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
-                </tr>            
+                @if($bill->project->isdeleted==0)
+                    <tr role="row" >
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
+                        <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
+                        <td> {{ $bill->amount }}</td>
+                        <td> {{ $bill->source }}</td>
+                        <td> {{ $bill->destination }}</td>
+                        <td> {{ $bill->project->name }}</td>                        
+                        <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                    </tr>
+                @endif
             @endforeach
         </tbody>       
     </table>            
