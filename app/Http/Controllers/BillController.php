@@ -303,6 +303,7 @@ class BillController extends Controller
         }
         
         //dd($request->all());
+        //DB::enableQueryLog();
         if(!empty($request->input('billDate_from')) && !empty($request->input('billDate_to')) && count($projectid)>0 ) {
             $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->whereIn('project_id', $projectid)->get();
         }
@@ -315,6 +316,7 @@ class BillController extends Controller
         else {
             $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->get();
         }
+        //dd(DB::getQueryLog());
         //dd($bills);
         $sum=0;
         foreach($bills as $b) {
