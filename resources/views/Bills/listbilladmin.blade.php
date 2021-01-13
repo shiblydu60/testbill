@@ -7,6 +7,7 @@
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
+                <th>Created</th>
                 <th>Name</th>
                 <th>Amount</th>
                 <th>Source</th>
@@ -20,7 +21,8 @@
             @foreach ($bills as $bill)
                 @if($bill->project->isdeleted==0)
                     <tr role="row" >
-                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d') }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('Y-M-d') }}</td>
                         <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
                         <td> {{ $bill->amount }}</td>
                         <td> {{ $bill->source }}</td>
