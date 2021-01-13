@@ -46,10 +46,30 @@ class UserController extends Controller
 
     public function dashboard() {
         //dd(Auth::user()->roles->first()->name);
-        $weekBill=Bill::whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->sum('amount');
-        $monthBill=Bill::whereMonth('bill_date', date('m'))->sum('amount');
-        $yearBill=Bill::whereYear('bill_date', date('Y'))->sum('amount');
-        return view('dashboard', ['weekBill'=>$weekBill,'monthBill'=>$monthBill, 'yearBill'=>$yearBill]);
+        $weekBill=Bill::with(['project'])->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+        $sumWeek=0;
+        foreach($weekBill as $w) {
+            if($w->project->isdeleted==0) {
+                $sumWeek=$sumWeek+$w->amount;
+            }
+        }
+        //dd($sumWeek);
+        $monthBill=Bill::with(['project'])->whereMonth('bill_date', date('m'))->get();
+        $sumMonth=0;
+        foreach($monthBill as $m) {
+            if($m->project->isdeleted==0) {
+                $sumMonth=$sumMonth+$m->amount;
+            }
+        }
+        //$yearBill=Bill::whereYear('bill_date', date('Y'))->sum('amount');
+        $yearBill=Bill::with(['project'])->whereYear('bill_date', date('Y'))->get();
+        $sumYear=0;
+        foreach($yearBill as $y) {
+            if($y->project->isdeleted==0) {
+                $sumYear=$sumYear+$y->amount;
+            }
+        }
+        return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear]);
     }
 
     public function logout(Request $request) {
