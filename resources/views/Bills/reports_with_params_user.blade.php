@@ -24,7 +24,7 @@
             <button class="mt-1 btn btn-primary">Submit</button>
         </div>
     </form> --}}
-    <a href="/exporttofileuser<?php echo $anc; ?>" class="float-right">Export to CSV</a>
+    {{--  <a href="/exporttofileuser<?php echo $anc; ?>" class="float-right">Export to CSV</a>  --}}
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">

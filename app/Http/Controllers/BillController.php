@@ -410,14 +410,16 @@ class BillController extends Controller
             fputcsv($file, $columns);
 
             foreach ($tasks as $task) {
-                $row['bill_date']  = $task->bill_date;
-                $row['name']  = $task->user->first_name . ' ' . $task->user->last_name;
-                $row['amount']    = $task->amount;
-                $row['source']    = $task->source;
-                $row['destination']  = $task->destination;
-                $row['project']  = $task->project->name;
+                if ($task->project->isdeleted==0) {
+                    $row['bill_date']  = $task->bill_date;
+                    $row['name']  = $task->user->first_name . ' ' . $task->user->last_name;
+                    $row['amount']    = $task->amount;
+                    $row['source']    = $task->source;
+                    $row['destination']  = $task->destination;
+                    $row['project']  = $task->project->name;
 
-                fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination'], $row['project'] ));
+                    fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination'], $row['project'] ));
+                }
             }
 
             fclose($file);

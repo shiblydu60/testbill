@@ -57,7 +57,11 @@
                     <td> {{ $bill->amount }}</td>
                     <td> {{ $bill->source }}</td>
                     <td> {{ $bill->destination }}</td>
-                    <td> {{ $bill->project->name }}</td>
+                    @if($bill->project->isdeleted==0)
+                        <td> {{ $bill->project->name }}</td>
+                    @else
+                        <td> {{ $bill->project->name }} (deleted)</td>
+                    @endif
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                     <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                 </tr>            
