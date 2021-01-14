@@ -23,7 +23,7 @@
             </div>
             <label for="project" class="">Projects</label>
             <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
-                <option value='0' selected>(empty)</option>
+                <option value='0' selected>...Select Project</option>
                 <?php 
                     foreach($projects as $p) {
                         if($p->isdeleted==0) {
@@ -34,7 +34,7 @@
             </select>
             <label for="user" class="">Users</label>
             <select multiple="" name="userid[]" id="userid" class="form-control" style="max-width:50%;">
-                <option value='0' selected='selected'>(empty)</option>
+                <option value='0' selected='selected'>...Select User</option>
                 <?php 
                     foreach($users as $u) {
                         echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
@@ -46,7 +46,10 @@
     </form>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('[data-toggle="datepicker"]').datepicker({endDate: new Date()});
+            $('[data-toggle="datepicker"]').datepicker({
+                endDate: new Date(),
+                autoHide: true
+            });
         });
     </script>
 @endsection

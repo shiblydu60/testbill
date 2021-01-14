@@ -68,7 +68,10 @@
     </form>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('[data-toggle="datepicker"]').datepicker({endDate: new Date()});
+            $('[data-toggle="datepicker"]').datepicker({
+                endDate: new Date(),
+                autoHide: true
+            });
         });
     </script>
 @endsection

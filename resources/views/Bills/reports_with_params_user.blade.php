@@ -25,6 +25,9 @@
         </div>
     </form> --}}
     {{--  <a href="/exporttofileuser<?php echo $anc; ?>" class="float-right">Export to CSV</a>  --}}
+    @if(count($bills)==0)
+        <h2>There is no record.</h2>
+    @endif
     <table style="width: 100%;" class="table table-hover table-striped table-bordered">
         <thead>
             <tr role="row">

@@ -57,4 +57,12 @@
 
         <button class="mt-1 btn btn-primary">Submit</button>
     </form>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('[data-toggle="datepicker"]').datepicker({
+                endDate: new Date(),
+                autoHide: true
+            });
+        });
+    </script>
 @endsection

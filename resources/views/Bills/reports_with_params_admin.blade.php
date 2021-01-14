@@ -34,8 +34,11 @@
             
         </div>
     </form> --}}
+    @if(count($bills)==0)
+        <h2>There is no record.</h2>
+    @endif
     <a href="/exporttofileadmin<?php echo $anc; ?>" class="float-right">Export to CSV</a>
-    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+    <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
@@ -45,6 +48,7 @@
                 <th>Destination</th>
                 <th>Project</th>
                 <th>Comments</th>
+                <th>Created</th>
                 <th>Action</th>
             </tr>
         </thead>
@@ -53,13 +57,14 @@
             @foreach ($bills as $bill)
                 @if($bill->project->isdeleted==0)
                     <tr role="row" >
-                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('Y-M-d H i s') }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('d-M-Y') }}</td>
                         <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
                         <td> {{ $bill->amount }}</td>
                         <td> {{ $bill->source }}</td>
                         <td> {{ $bill->destination }}</td>
                         <td> {{ $bill->project->name }}</td>
                         <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('d-M-Y') }}</td>
                         <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                     </tr>
                 @endif
@@ -68,6 +73,7 @@
                 <td></td>
                 <td></td>
                 <td>{{ $sum }}</td>
+                <td></td>
                 <td></td>
                 <td></td>
                 <td></td>

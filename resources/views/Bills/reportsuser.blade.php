@@ -15,7 +15,7 @@
             </div>
             <label for="project" class="">Projects</label>
             <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
-                <option value='0' selected='selected'>(empty)</option>
+                <option value='0' selected='selected'>...Select Project</option>
                 <?php
                     foreach($projects as $p) {
                         if($p->isdeleted==0) {
@@ -29,7 +29,10 @@
     </form>
     <script type="text/javascript">
         $(document).ready(function() {
-            $('[data-toggle="datepicker"]').datepicker({endDate: new Date()});
+            $('[data-toggle="datepicker"]').datepicker({
+                endDate: new Date(),
+                autoHide: true
+            });
         });
     </script>
 @endsection

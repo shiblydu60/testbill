@@ -119,7 +119,7 @@ class BillController extends Controller
     }
     
     public function listbilladmin(Request $request) {
-        $bills=Bill::with(['user', 'project'])->get();
+        $bills=Bill::with(['user', 'project'])->orderBy('bill_date')->get();
         /*
         $bills = Bill::select('*')
                 ->join('users', 'transport_bills.user_id', '=', 'users.id')
