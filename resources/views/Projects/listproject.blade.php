@@ -21,7 +21,7 @@
                         <td> {{ $p->name }}</td>
                         <td> {{ $p->description }}</td>
                         <td> {{ $p->created_at }}</td>
-                        <td> {{ $p->bills->sum('amount') }}</td>
+                        <td> <a href="/projects/{{ $p->id }}/sum/{{ $p->bills->sum('amount') }}">{{ $p->bills->sum('amount') }}</a></td>
                         <td><a href="/projects/{{ $p->id }}/edit">Edit</a>&nbsp
                             @if($p->id!=1)
                                 <a href="/projects/{{ $p->id }}/delete">Delete</a>

@@ -51,3 +51,4 @@ Route::get('/reportsuser', [BillController::class, 'reportsuser'])->name('report
 Route::post('/reports_with_params_user', [BillController::class, 'reports_with_params_user'])->name('reports_with_params_user')->middleware('auth');
 Route::get('/listbilluser', [BillController::class, 'listbilluser'])->name('listbilluser')->middleware('auth');
 Route::get('/exporttofileuser', [BillController::class, 'exporttofileuser'])->name('exporttofileuser')->middleware('auth');
+Route::get('/projects/{id}/sum/{sum}', [ProjectController::class, 'sum'])->name('sumproject')->middleware('auth');

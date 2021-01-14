@@ -26,7 +26,7 @@
 
         <div class="position-relative form-group">
             <label for="userPassword" class="">Password</label>
-            <input name="password" id="userPassword" placeholder="Password" type="password" class="form-control" value="" />
+            <input name="password" id="userPassword" placeholder="Password" type="password" class="form-control" value="<?php echo $user->password; ?>" />
         </div>
 
         <div class="position-relative form-group">

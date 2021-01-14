@@ -99,7 +99,9 @@ class UserController extends Controller
                 }
             }
         }
-        return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear]);
+        $daysBills=Bill::with(['user', 'project'])->where('user_id', '=', $aid)->orderBy('bill_date', 'DESC')->limit(3)->get();
+        //dd($daysBills);
+        return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills'=>$daysBills]);
     }
 
     public function logout(Request $request) {

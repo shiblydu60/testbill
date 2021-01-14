@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Project;
 use Illuminate\Support\Facades\DB;
 use Session;
+use App\Models\Bill;
 
 class ProjectController extends Controller
 {
@@ -64,5 +65,12 @@ class ProjectController extends Controller
         //Session::flash('message', 'Project deleted successfully.');
         return redirect()->intended('/listproject');
         //return view('Projects.delete');
+    }
+
+    public function sum($id,$sum) {
+        //dd($sum);
+        $project=Project::findOrFail($id);
+        $bills=Bill::with(['user','project'])->where('project_id', '=', $id)->get();
+        return view('Projects.sum', ['bills'=>$bills]);
     }
 }

@@ -166,7 +166,7 @@
                             <li class="app-sidebar__heading">Home</li>
                             <li class="mm-active" >
                                 <a href="/dashboard">
-                                    <i class="metismenu-icon lnr-exit"></i>
+                                    <i class="metismenu-icon pe-7s-home"></i>
                                     Dashboard                                    
                                 </a>
                             </li>
