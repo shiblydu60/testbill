@@ -44,5 +44,9 @@
             <button class="mt-1 btn btn-primary">Submit</button>
         </div>
     </form>
-    
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('[data-toggle="datepicker"]').datepicker({endDate: new Date()});
+        });
+    </script>
 @endsection

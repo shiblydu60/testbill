@@ -3,7 +3,7 @@
 @section('heading', 'List Bill')
 @section('content')
 
-    <table style="width: 100%;" class="table table-hover table-striped table-bordered">
+    <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
         <thead>
             <tr role="row">
                 <th>Bill Date</th>
@@ -31,6 +31,6 @@
         </tbody>       
     </table>            
 
-    {{ $bills->links("pagination::bootstrap-4") }}
+    {{-- {{ $bills->links("pagination::bootstrap-4") }} --}}
 
 @endsection

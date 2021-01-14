@@ -134,7 +134,7 @@ class BillController extends Controller
 
     public function listbilluser() {
         $aid=Auth::id();
-        $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->paginate(15);        
+        $bills = Bill::with(['user', 'project'])->where('user_id', '=', $aid)->get();
         return view('Bills.listbilluser', ['bills' => $bills]);
     }
 
