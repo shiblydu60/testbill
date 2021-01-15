@@ -15,15 +15,17 @@
         <tbody>
         
             @foreach ($users as $user)
-                <tr role="row" >
-                    <td> {{ $user->first_name }}</td>
-                    <td> {{ $user->last_name }}</td>
-                    <td> {{ $user->email }}</td>
-                    <td><a href="/users/{{ $user->id }}/edit">Edit</a>&nbsp
-                    @if ($user->email != 'superadmin@admin.com')
-                        <a href="/users/{{ $user->id }}/delete">Delete</a></td>
-                    @endif                    
-                </tr>
+                @if($user->isactive==1)
+                    <tr role="row" >
+                        <td> {{ $user->first_name }}</td>
+                        <td> {{ $user->last_name }}</td>
+                        <td> {{ $user->email }}</td>
+                        <td><a href="/users/{{ $user->id }}/edit">Edit</a>&nbsp
+                        @if ($user->email != 'superadmin@admin.com')
+                            <a href="/users/{{ $user->id }}/delete">Delete</a></td>
+                        @endif
+                    </tr>
+                @endif
             @endforeach
         </tbody>       
     </table>            
