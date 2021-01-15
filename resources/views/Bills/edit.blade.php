@@ -2,7 +2,7 @@
 @section('title', 'Dashboard')
 @section('heading', 'Edit Bill')
 @section('content')
-    <form class="" method="POST" action="/bills/<?php echo $bill->id; ?>/update" >
+    <form class="" method="POST" action="/bills/<?php echo $bill->id; ?>/update" enctype="multipart/form-data">
         @csrf
         
         <div class="position-relative form-group">
@@ -24,16 +24,23 @@
             <label for="destination" class="">Destination</label>
             <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" value="<?php echo $bill->destination; ?>" />
         </div>
+
+        <div class="position-relative form-group">
+            <label for="file" class="">File</label>
+            <input name="file" id="file" type="file" class="form-control" />
+        </div>
+
         <label for="project" class="">Projects</label>
         <select multiple="" name="project" id="project" class="form-control">
             <?php 
                 foreach($projects as $p) {
+                    if($p->isdeleted==0) {
                         if($p->id==$bill->project->id) {
                             echo "<option selected='true' value='$p->id'>$p->name</option>";
                         } else {
                             echo "<option value='$p->id'>$p->name</option>";
                         }
-                    
+                    }
                 }
             ?>
         </select>
@@ -41,11 +48,13 @@
         <select multiple="" name="userid" id="userid" class="form-control">
             <?php 
                 foreach($users as $u) {
-                    if($u->id==$bill->user->id) {
-                        echo "<option selected='true' value='$u->id'>$u->first_name $u->last_name</option>";
-                    } else {
-                        echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
-                    }                    
+                    if($u->isactive==1) {
+                        if($u->id==$bill->user->id) {
+                            echo "<option selected='true' value='$u->id'>$u->first_name $u->last_name</option>";
+                        } else {
+                            echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
+                        }
+                    }
                 }
             ?>
         </select>

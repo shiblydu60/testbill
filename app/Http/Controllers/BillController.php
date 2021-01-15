@@ -80,6 +80,10 @@ class BillController extends Controller
         $obj->amount=$request->input('amount');
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
+        $path = $request->file('file')->storeAs(
+            'public/uploads', $request->file('file')->getClientOriginalName()
+        );
+        $obj->file_location=$path;
         $obj->project_id=$request->input('project');
         $obj->user_id=$request->input('userid');
         $obj->comment=$request->input('comment');
