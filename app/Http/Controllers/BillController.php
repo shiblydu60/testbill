@@ -453,20 +453,30 @@ class BillController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('bill_date', 'amount', 'source', 'destination', 'project');
+        $columns = array('bill_date', 'amount', 'source', 'destination', 'project', 'comment', 'created');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
             fputcsv($file, $columns);
-
+            
             foreach ($tasks as $task) {
-                $row['bill_date']  = $task->bill_date;
+                $billDate_from=$task->bill_date;
+                $date = new DateTime($billDate_from);
+                $d1=$date->format('d-m-Y');
+            
+                $row['bill_date']  = $d1;
                 $row['amount']    = $task->amount;
                 $row['source']    = $task->source;
                 $row['destination']  = $task->destination;
                 $row['project']  = $task->project->name;
+                $row['comment'] = $task->comment;
+                
+                $created_at=$task->created_at;
+                $date = new DateTime($created_at);
+                $d1=$date->format('d-m-Y');
+                $row['created_at'] = $d1;
 
-                fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project']));
+                fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created_at']) );
             }
 
             fclose($file);
