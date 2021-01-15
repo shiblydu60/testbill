@@ -22,7 +22,7 @@
             @foreach ($bills as $bill)
                 @if($bill->project->isdeleted==0 && $bill->user->isactive==1)
                     <tr role="row" >
-                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('d-M-Y') }}</td>                        
+                        <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('D M d, Y') }}</td>                        
                         <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
                         <td> {{ $bill->amount }}</td>
                         <td> {{ $bill->source }}</td>
@@ -31,7 +31,7 @@
                         <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                         {{--  <td> <a href="/bills/{{ $bill->file_location }}/showfile">File</a></td>  --}}
                         <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2 " data-toggle="modal" data-target=".bd-example-modal-lg">File</a></td>
-                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('d-M-Y') }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
                     </tr>
                 @endif
             @endforeach
