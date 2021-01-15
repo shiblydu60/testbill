@@ -20,7 +20,7 @@
         <tbody>
         
             @foreach ($bills as $bill)
-                @if($bill->project->isdeleted==0)
+                @if($bill->project->isdeleted==0 && $bill->user->isactive==1)
                     <tr role="row" >
                         <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('d-M-Y') }}</td>                        
                         <td> {{ $bill->user->first_name }} {{ $bill->user->last_name }}</td>
