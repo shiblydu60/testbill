@@ -378,7 +378,7 @@ class BillController extends Controller
             "Expires"             => "0"
         );
 
-        $columns = array('bill_date', 'name', 'amount', 'source', 'destination', 'project');
+        $columns = array('bill_date', 'name', 'amount', 'source', 'destination', 'project', 'comment', 'created');
 
         $callback = function() use($tasks, $columns) {
             $file = fopen('php://output', 'w');
@@ -386,14 +386,26 @@ class BillController extends Controller
 
             foreach ($tasks as $task) {
                 if ($task->project->isdeleted==0) {
-                    $row['bill_date']  = $task->bill_date;
+                    
+                    $billDate=$task->bill_date;
+                    $date = new DateTime($billDate);
+                    $d1=$date->format('d-m-Y');
+
+                    $row['bill_date']  = $d1;
                     $row['name']  = $task->user->first_name . ' ' . $task->user->last_name;
                     $row['amount']    = $task->amount;
                     $row['source']    = $task->source;
                     $row['destination']  = $task->destination;
                     $row['project']  = $task->project->name;
+                    $row['comment'] = $task->comment;
 
-                    fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination'], $row['project'] ));
+                    $created=$task->created_at;
+                    $date = new DateTime($created);
+                    $d1=$date->format('d-m-Y');
+
+                    $row['created'] = $d1;
+
+                    fputcsv($file, array($row['bill_date'], $row['name'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created'] ));
                 }
             }
 
