@@ -10,6 +10,7 @@ use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Session;
+use Illuminate\Support\Facades\Storage;
 
 class BillController extends Controller
 {
@@ -50,6 +51,11 @@ class BillController extends Controller
         }
         
         $obj->comment=$request->input('comment');
+        $path = $request->file('file')->storeAs(
+            'public/uploads', $request->file('file')->getClientOriginalName()
+        );
+        //dd($path);
+        $obj->file_location=$path;
         $obj->save();
         $request->session()->flash('message', 'Bill saved successfully.');
         return redirect()->intended('/listbilluser');
@@ -112,6 +118,12 @@ class BillController extends Controller
             $obj->project_id=$request->input('project');
         }
         $obj->comment=$request->input('comment');
+        //dd($request->all());
+        $path = $request->file('file')->storeAs(
+            'public/uploads', $request->file('file')->getClientOriginalName()
+        );        
+        //dd($path);
+        $obj->file_location=$path;
         $obj->save();
         $request->session()->flash('message', 'Bill saved successfully.');
         return redirect()->intended('/listbilladmin');
@@ -461,5 +473,11 @@ class BillController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);        
+    }
+
+    public function showfile($id1, $id2, $id3) {
+        $file=$id1 . '/' . $id2 . '/' . $id3;
+        //dd($id1 . '/' . $id2 . '/' . $id3);
+        return view('Bills.showfile',['file'=>$file]);
     }
 }

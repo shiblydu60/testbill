@@ -11,7 +11,7 @@
         </ul>
     </div>
     @endif
-    <form class="" method="POST" action="/storebill" >
+    <form class="" method="POST" action="/storebill" enctype="multipart/form-data" >
         @csrf
         
         <div class="position-relative form-group">
@@ -32,6 +32,11 @@
         <div class="position-relative form-group">
             <label for="destination" class="">Destination</label>
             <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" />
+        </div>
+
+        <div class="position-relative form-group">
+            <label for="file" class="">File</label>
+            <input name="file" id="file" type="file" class="form-control" />
         </div>
 
         <div class="position-relative form-group">
