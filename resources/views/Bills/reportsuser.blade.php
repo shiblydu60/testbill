@@ -6,12 +6,15 @@
     <form class="" method="POST" action="/reports_with_params_user" >
         @csrf
         <div class="position-relative form-group">
-            <div>
-                <label for="billDate" class="">From date</label>
-                <input name="billDate_from" id="billDate" placeholder="From Date" type="text" class="form-control w-50" data-toggle="datepicker" />
-        
-                <label for="billDate" class="">To date</label>
-                <input name="billDate_to" id="billDate" placeholder="To Date" type="text" class="form-control w-50" data-toggle="datepicker" />
+            <div class="form-row">
+                <div class="col-md-4">
+                    <label for="billDate" class="">From date</label>
+                    <input name="billDate_from" id="billDate" placeholder="From Date" type="text" class="form-control w-50" data-toggle="datepicker" />
+                </div>
+                <div class="col-md-4">
+                    <label for="billDate" class="">To date</label>
+                    <input name="billDate_to" id="billDate" placeholder="To Date" type="text" class="form-control w-50" data-toggle="datepicker" />
+                </div>
             </div>
             <label for="project" class="">Projects</label>
             <select multiple="" name="project[]" id="project" class="form-control" style="max-width:50%;">
