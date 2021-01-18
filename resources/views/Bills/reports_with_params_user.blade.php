@@ -53,7 +53,11 @@
                         <td> {{ $bill->project->name }}</td>
                         <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
                         {{--  <td> <a href="/bills/{{ $bill->file_location }}/showfile">File</a></td>  --}}
-                        <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2" data-toggle="modal" data-target=".bd-example-modal-lg">File</a></td>
+                        <?php 
+                            $pieces = explode("/", $bill->file_location);
+                            $filename=$pieces[count($pieces)-1];
+                        ?>
+                        <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2" data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
                     </tr>
                 @endif
