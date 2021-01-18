@@ -34,15 +34,20 @@
             <label for="amount" class="">Amount</label>
             <input name="amount" id="amount" placeholder="Amount" type="text" class="form-control" />
         </div>
-
-        <div class="position-relative form-group">
-            <label for="source" class="">Source</label>
-            <input name="source" id="source" placeholder="Source" type="text" class="form-control" />
-        </div>
-
-        <div class="position-relative form-group">
-            <label for="destination" class="">Destination</label>
-            <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" />
+        
+        <div class="form-row">
+            <div class="col-md-6">        
+                <div class="position-relative form-group">
+                    <label for="source" class="">Source</label>
+                    <input name="source" id="source" placeholder="Source" type="text" class="form-control" />
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="destination" class="">Destination</label>
+                    <input name="destination" id="destination" placeholder="Destination" type="text" class="form-control" />
+                </div>
+            </div>
         </div>
 
         <div class="position-relative form-group">
