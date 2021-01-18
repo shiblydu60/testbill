@@ -47,7 +47,7 @@
 
         <div class="position-relative form-group">
             <label for="file" class="">File</label>
-            <input name="file" id="file" type="file" class="form-control" />
+            <input name="file" id="file" type="file" />
         </div>
 
         <div class="position-relative form-group">
