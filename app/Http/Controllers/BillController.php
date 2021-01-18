@@ -393,7 +393,7 @@ class BillController extends Controller
                     
                     $billDate=$task->bill_date;
                     $date = new DateTime($billDate);
-                    $d1=$date->format('d-m-Y');
+                    $d1=$date->format('D M d, Y');
 
                     $row['bill_date']  = $d1;
                     $row['name']  = $task->user->first_name . ' ' . $task->user->last_name;
@@ -405,7 +405,7 @@ class BillController extends Controller
 
                     $created=$task->created_at;
                     $date = new DateTime($created);
-                    $d1=$date->format('d-m-Y');
+                    $d1=$date->format('D M d, Y');
 
                     $row['created'] = $d1;
 
@@ -478,7 +478,7 @@ class BillController extends Controller
             foreach ($tasks as $task) {
                 $billDate_from=$task->bill_date;
                 $date = new DateTime($billDate_from);
-                $d1=$date->format('d-m-Y');
+                $d1=$date->format('D M d, Y');
             
                 $row['bill_date']  = $d1;
                 $row['amount']    = $task->amount;
@@ -489,7 +489,7 @@ class BillController extends Controller
                 
                 $created_at=$task->created_at;
                 $date = new DateTime($created_at);
-                $d1=$date->format('d-m-Y');
+                $d1=$date->format('D M d, Y');
                 $row['created_at'] = $d1;
 
                 fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created_at']) );
