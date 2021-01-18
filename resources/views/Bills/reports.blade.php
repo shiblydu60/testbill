@@ -37,7 +37,9 @@
                 <option value='0' selected='selected'>...Select User</option>
                 <?php 
                     foreach($users as $u) {
-                        echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
+                        if($u->isactive==1) {
+                            echo "<option value='$u->id'>$u->first_name $u->last_name</option>";
+                        }                        
                     }
                 ?>
             </select>
