@@ -474,7 +474,7 @@
             </div> --}}
 
             <div class="modal-body">
-                <p>
+                <p style="text-align: center;">
                     <img id="id_img_file" src="" />
                 </p>                
             </div>
