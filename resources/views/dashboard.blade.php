@@ -81,7 +81,7 @@
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
-                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
+                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
         @endforeach
@@ -113,7 +113,7 @@
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
-                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
+                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
         @endforeach

@@ -35,7 +35,7 @@
                             $filename=$pieces[count($pieces)-1];
                         ?>
                         <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2 " data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td>
-                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     </tr>
                 @endif
             @endforeach
