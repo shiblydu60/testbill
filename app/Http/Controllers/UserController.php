@@ -73,6 +73,9 @@ class UserController extends Controller
                     $sumYear=$sumYear+$y->amount;
                 }
             }
+            $daysBills_admin=Bill::with(['user', 'project'])->orderBy('bill_date', 'DESC')->limit(3)->get();
+            //dd($daysBills);
+            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills_admin'=>$daysBills_admin]);
         }
         if ($auser->roles->first()->name=='user') {
             $weekBill=Bill::with(['project'])->where('user_id', '=', $aid)->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
@@ -98,10 +101,11 @@ class UserController extends Controller
                     $sumYear=$sumYear+$y->amount;
                 }
             }
+            $daysBills=Bill::with(['user', 'project'])->where('user_id', '=', $aid)->orderBy('bill_date', 'DESC')->limit(3)->get();
+            //dd($daysBills);
+            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills'=>$daysBills]);
         }
-        $daysBills=Bill::with(['user', 'project'])->where('user_id', '=', $aid)->orderBy('bill_date', 'DESC')->limit(3)->get();
-        //dd($daysBills);
-        return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills'=>$daysBills]);
+        
     }
 
     public function logout(Request $request) {
