@@ -49,13 +49,15 @@ class BillController extends Controller
         } else {
             $obj->project_id=$request->input('project');
         }
+        if(!empty($request->file('file'))) {
+            $obj->comment=$request->input('comment');
+            $path = $request->file('file')->storeAs(
+                'public/uploads', $request->file('file')->getClientOriginalName()
+            );
+            //dd($path);
+            $obj->file_location=$path;
+        }
         
-        $obj->comment=$request->input('comment');
-        $path = $request->file('file')->storeAs(
-            'public/uploads', $request->file('file')->getClientOriginalName()
-        );
-        //dd($path);
-        $obj->file_location=$path;
         $obj->save();
         $request->session()->flash('message', 'Bill saved successfully.');
         return redirect()->intended('/listbilluser');
@@ -80,13 +82,17 @@ class BillController extends Controller
         $obj->amount=$request->input('amount');
         $obj->source=$request->input('source');
         $obj->destination=$request->input('destination');
-        $path = $request->file('file')->storeAs(
-            'public/uploads', $request->file('file')->getClientOriginalName()
-        );
-        $obj->file_location=$path;
+        if (!empty($request->file('file'))) {
+            $path = $request->file('file')->storeAs(
+                'public/uploads',
+                $request->file('file')->getClientOriginalName()
+            );
+            $obj->file_location=$path;
+        }
         $obj->project_id=$request->input('project');
         $obj->user_id=$request->input('userid');
         $obj->comment=$request->input('comment');
+        //dd($request->all());
         $obj->save();
         
         return view('Bills.update');
@@ -123,11 +129,15 @@ class BillController extends Controller
         }
         $obj->comment=$request->input('comment');
         //dd($request->all());
-        $path = $request->file('file')->storeAs(
-            'public/uploads', $request->file('file')->getClientOriginalName()
-        );        
+        if (!empty($request->file('file'))) {
+            $path = $request->file('file')->storeAs(
+                'public/uploads',
+                $request->file('file')->getClientOriginalName()
+            );
+            $obj->file_location=$path;
+        }        
         //dd($path);
-        $obj->file_location=$path;
+        
         $obj->save();
         $request->session()->flash('message', 'Bill saved successfully.');
         return redirect()->intended('/listbilladmin');
