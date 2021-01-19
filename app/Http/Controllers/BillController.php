@@ -94,8 +94,9 @@ class BillController extends Controller
         $obj->comment=$request->input('comment');
         //dd($request->all());
         $obj->save();
-        
-        return view('Bills.update');
+        $request->session()->flash('message', 'Bill updated successfully.');
+        return redirect()->intended('/listbilladmin');
+        //return view('Bills.update');
     }
 
     public function addbilladmin() {
