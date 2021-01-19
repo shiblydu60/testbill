@@ -27,22 +27,25 @@
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
                                         <div class="slide-img-bg" style="background-image: url('../assets/images/originals/city.jpg');"></div>
-                                        <div class="slider-content"><h3>Transport Bill System</h3>
-                                            <p>Transport Bill System.</p></div>
+                                        <div class="slider-content"><h3>Transport Bill Management</h3>
+                                            {{-- <p>Transport Bill Management.</p> --}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
                                         <div class="slide-img-bg" style="background-image: url('../assets/images/originals/citynights.jpg');"></div>
-                                        <div class="slider-content"><h3>Transport Bill System</h3>
-                                            <p>Transport Bill System.</p></div>
+                                        <div class="slider-content"><h3>Transport Bill Management</h3>
+                                            {{-- <p>Transport Bill Management.</p> --}}
+                                        </div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
                                         <div class="slide-img-bg" style="background-image: url('../assets/images/originals/citydark.jpg');"></div>
-                                        <div class="slider-content"><h3>Transport Bill System</h3>
-                                            <p>Transport Bill System.</p></div>
+                                        <div class="slider-content"><h3>Transport Bill Management</h3>
+                                            {{-- <p>Transport Bill Management.</p> --}}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -54,7 +57,7 @@
                             <h4 class="mb-0">
                                 <span class="d-block">Welcome back,</span>
                                 <span>Please sign in to your account.</span></h4>
-                            <h6 class="mt-3">No account? <a href="javascript:void(0);" class="text-primary">Sign up now</a></h6>
+                            {{-- <h6 class="mt-3">No account? <a href="javascript:void(0);" class="text-primary">Sign up now</a></h6> --}}
                             <div class="divider row"></div>
                             <div>
                                 <form class="" method="POST" action="{{ route('login') }}" >
@@ -72,10 +75,11 @@
                                                 <input name="password" id="examplePassword" placeholder="Password here" type="password" class="form-control" value="superadmin@admin.com"></div>
                                         </div>
                                     </div>
-                                    <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">Keep me logged in</label></div>
+                                    {{-- <div class="position-relative form-check"><input name="check" id="exampleCheck" type="checkbox" class="form-check-input"><label for="exampleCheck" class="form-check-label">Keep me logged in</label></div> --}}
                                     <div class="divider row"></div>
                                     <div class="d-flex align-items-center">
-                                        <div class="ml-auto"><a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a>
+                                        <div class="ml-auto">
+                                            {{-- <a href="javascript:void(0);" class="btn-lg btn btn-link">Recover Password</a> --}}
                                             <button class="btn btn-primary btn-lg">Login to Dashboard</button>
                                         </div>
                                     </div>
