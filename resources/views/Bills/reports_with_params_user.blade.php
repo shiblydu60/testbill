@@ -31,6 +31,7 @@
     <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
         <thead>
             <tr role="row">
+                <th>Serial</th>
                 <th>Bill Date</th>
                 <th>Amount</th>
                 <th>Source</th>
@@ -42,10 +43,13 @@
             </tr>
         </thead>
         <tbody>
-        
+            <?php 
+                $cnt=1;
+            ?>
             @foreach ($bills as $bill)
                 @if($bill->project->isdeleted==0)
                     <tr role="row" >
+                        <td> {{ $cnt }}</td>
                         <td> {{ Carbon\Carbon::parse($bill->bill_date)->format('D M d, Y') }}</td>
                         <td> {{ $bill->amount }}</td>
                         <td> {{ $bill->source }}</td>
@@ -60,10 +64,12 @@
                         <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2" data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y') }}</td>
                     </tr>
+                    <?php $cnt++; ?>
                 @endif
             @endforeach
 
             <tr>
+                <td>{{ $cnt }}</td>
                 <td></td>
                 <td>{{ $sum }}</td>
                 <td></td>

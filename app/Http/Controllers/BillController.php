@@ -476,23 +476,26 @@ class BillController extends Controller
             fputcsv($file, $columns);
             
             foreach ($tasks as $task) {
-                $billDate_from=$task->bill_date;
-                $date = new DateTime($billDate_from);
-                $d1=$date->format('D M d, Y');
+                if ($task->project->isdeleted==0) {
+                    $billDate_from=$task->bill_date;
+                    $date = new DateTime($billDate_from);
+                    $d1=$date->format('D M d, Y');
             
-                $row['bill_date']  = $d1;
-                $row['amount']    = $task->amount;
-                $row['source']    = $task->source;
-                $row['destination']  = $task->destination;
-                $row['project']  = $task->project->name;
-                $row['comment'] = $task->comment;
+                    $row['bill_date']  = $d1;
+                    $row['amount']    = $task->amount;
+                    $row['source']    = $task->source;
+                    $row['destination']  = $task->destination;
+                    $row['project']  = $task->project->name;
+                    $row['comment'] = $task->comment;
                 
-                $created_at=$task->created_at;
-                $date = new DateTime($created_at);
-                $d1=$date->format('D M d, Y');
-                $row['created_at'] = $d1;
+                    $created_at=$task->created_at;
+                    $date = new DateTime($created_at);
+                    $d1=$date->format('D M d, Y');
+                    $row['created_at'] = $d1;
+                
 
-                fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created_at']) );
+                    fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created_at']));
+                }
             }
 
             fclose($file);
