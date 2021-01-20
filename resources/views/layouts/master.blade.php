@@ -204,7 +204,7 @@
                             @if (Auth::user()->hasRole('superadmin'))
                             <li class="mm-active">
                                 <a href="#">
-                                    <i class="metismenu-icon pe-7s-credit"></i>
+                                    <i class="metismenu-icon pe-7s-credit"></i>                                    
                                     Project Management
                                     
                                 </a>

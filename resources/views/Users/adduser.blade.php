@@ -13,14 +13,20 @@
     @endif
     <form class="" method="POST" action="/storeuser" >
         @csrf
-        <div class="position-relative form-group">
-            <label for="firstName" class="">First Name</label>
-            <input name="firstName" id="firstName" placeholder="First Name" type="text" class="form-control" />
-        </div>
+        <div class="form-row">
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="firstName" class="">First Name</label>
+                    <input name="firstName" id="firstName" placeholder="First Name" type="text" class="form-control" />
+                </div>
+            </div>
 
-        <div class="position-relative form-group">
-            <label for="lastName" class="">Last Name</label>
-            <input name="lastName" id="lasttName" placeholder="Last Name" type="text" class="form-control" />
+            <div class="col-md-6">
+                <div class="position-relative form-group">
+                    <label for="lastName" class="">Last Name</label>
+                    <input name="lastName" id="lasttName" placeholder="Last Name" type="text" class="form-control" />
+                </div>
+            </div>
         </div>
 
         <div class="position-relative form-group">
