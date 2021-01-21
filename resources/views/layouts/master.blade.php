@@ -268,7 +268,7 @@
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-note2"></i>                                    
-                                    Management Approval
+                                    Approval Management
                                 </a>
                                 <ul>
                                     <li>
