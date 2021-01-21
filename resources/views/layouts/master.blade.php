@@ -226,6 +226,7 @@
                                 </ul>
                             </li>
                             @endif
+
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-credit"></i>
@@ -259,10 +260,26 @@
                                             <a href="/reportsuser"><i class="metismenu-icon"></i>Reports</a>
                                         @endif
                                         
-                                    </li>                                    
+                                    </li>
                                 </ul>
                             </li>
                             
+                            @if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
+                            <li class="mm-active">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-note2"></i>                                    
+                                    Management Approval
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="/monitorbill">
+                                            <i class="metismenu-icon">
+                                            </i>Approve or Reject
+                                        </a>
+                                    </li>                                    
+                                </ul>
+                            </li>
+                            @endif
 
                             <li class="app-sidebar__heading">Exit</li>
                             <li class="mm-active" >

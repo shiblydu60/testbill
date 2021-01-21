@@ -49,7 +49,7 @@ class UserController extends Controller
         $auser=Auth::user();
         $aid=Auth::id();
         //dd($auser->roles->first()->name);
-        if ($auser->roles->first()->name=='superadmin') {
+        if ($auser->roles->first()->name=='superadmin' || $auser->roles->first()->name=='accounts') {
             $weekBill=Bill::with(['project'])->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
             foreach ($weekBill as $w) {

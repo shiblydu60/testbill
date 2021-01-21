@@ -9,6 +9,7 @@ use App\Models\Project;
 use App\Models\User;
 use DateTime;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Session;
 use Illuminate\Support\Facades\Storage;
 
@@ -49,15 +50,14 @@ class BillController extends Controller
         } else {
             $obj->project_id=$request->input('project');
         }
-        if(!empty($request->file('file'))) {
-            $obj->comment=$request->input('comment');
+        if(!empty($request->file('file'))) {            
             $path = $request->file('file')->storeAs(
                 'public/uploads', $request->file('file')->getClientOriginalName()
             );
             //dd($path);
             $obj->file_location=$path;
         }
-        
+        $obj->comment=$request->input('comment');
         $obj->save();
         $request->session()->flash('message', 'Bill saved successfully.');
         return redirect()->intended('/listbilluser');
@@ -519,5 +519,50 @@ class BillController extends Controller
         $file=$id1 . '/' . $id2 . '/' . $id3;
         //dd($id1 . '/' . $id2 . '/' . $id3);
         return view('Bills.showfile',['file'=>$file]);
+    }
+
+    public function monitorbill() {
+        $bills=Bill::with(['user', 'project'])->orderBy('bill_date')->get();
+        //dd($bills);
+        return view('Bills.monitorbill', ['bills'=>$bills]);
+    }
+
+    public function approveform($id) {
+        //dd($id);
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+        return view('Bills.approveform', ['bill'=>$bill]);
+    }
+
+    public function approvebill(Request $request, $id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+
+        //dd($request->all());
+        //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
+        $bill->monitored_by=Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $bill->status=1;
+        $bill->note=$request->input('note');
+        $bill->monitored_at=Carbon::now();
+        $bill->save();
+        $request->session()->flash('message', 'Bill approved successfully.');
+        return redirect()->intended('/monitorbill');
+    }
+
+    public function rejectform($id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+        return view('Bills.rejectform', ['bill'=>$bill]);
+    }
+
+    public function rejectbill(Request $request, $id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+
+        //dd($request->all());
+        //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
+        $bill->monitored_by=Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $bill->status=2;
+        $bill->note=$request->input('note');
+        $bill->monitored_at=Carbon::now();
+        $bill->save();
+        $request->session()->flash('message', 'Bill rejected successfully.');
+        return redirect()->intended('/monitorbill');
     }
 }

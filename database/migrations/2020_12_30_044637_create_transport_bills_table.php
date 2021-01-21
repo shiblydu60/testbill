@@ -24,6 +24,10 @@ class CreateTransportBillsTable extends Migration
             $table->string('file_location')->nullable();
             $table->integer('project_id')->nullable();
             $table->text('comment')->nullable();
+            $table->string('monitored_by')->nullable();
+            $table->integer('status')->nullable();
+            $table->text('note')->nullable();
+            $table->dateTime('monitored_at', $precision = 0)->nullable();
             $table->timestamps();
         });
     }

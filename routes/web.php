@@ -45,6 +45,14 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('/exporttofileadmin', [BillController::class, 'exporttofileadmin'])->name('exporttofileadmin')->middleware('auth');
 });
 
+Route::group(['middleware' => ['role:superadmin|accounts']], function () {
+    Route::get('/monitorbill', [BillController::class, 'monitorbill'])->name('monitorbill')->middleware('auth');
+    Route::get('/bills/{id}/approveform', [BillController::class, 'approveform'])->name('approveform')->middleware('auth');
+    Route::post('/bills/{id}/approvebill', [BillController::class, 'approvebill'])->name('approvebill')->middleware('auth');
+    Route::get('/bills/{id}/rejectform', [BillController::class, 'rejectform'])->name('rejectform')->middleware('auth');
+    Route::post('/bills/{id}/rejectbill', [BillController::class, 'rejectbill'])->name('rejectbill')->middleware('auth');
+});
+
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');
 Route::post('/storebill', [BillController::class, 'storebill'])->name('storebill')->middleware('auth');
 Route::get('/reportsuser', [BillController::class, 'reportsuser'])->name('reportsuser')->middleware('auth');

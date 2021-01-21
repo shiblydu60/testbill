@@ -13,6 +13,7 @@
                 <th>Purpose</th>
                 <th>Comments</th>
                 <th>File</th>
+                <th>Status</th>
                 <th>Created</th>
             </tr>
         </thead>
@@ -33,6 +34,19 @@
                             $filename=$pieces[count($pieces)-1];
                         ?>
                         <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2" data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td>
+                        <td>
+                            <?php
+                                if($bill->status==1) {
+                                    echo 'Approved';
+                                }
+                                if($bill->status==2) {
+                                    echo 'Rejected';
+                                }
+                                else {
+                                    echo $bill->status;
+                                }
+                            ?>
+                        </td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     </tr>
                 @endif
