@@ -47,7 +47,7 @@
                 <th>Amount</th>
                 <th>Source</th>
                 <th>Destination</th>
-                <th>Project</th>
+                <th>Purpose</th>
                 <th>Comments</th>
                 <th>File</th>
                 <th>Created</th>
@@ -108,7 +108,7 @@
                 table.row.add( [
                     "{{ $cnt }}",
                     "",
-                    "",
+                    "Total",
                     {{ $sum }},
                     "",
                     "",

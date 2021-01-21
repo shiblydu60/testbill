@@ -65,7 +65,7 @@
             <th>Amount</th>
             <th>Source</th>
             <th>Destination</th>
-            <th>Project</th>
+            <th>Purpose</th>
             <th>Comments</th>
             <th>Created</th>
         </tr>
@@ -97,7 +97,7 @@
             <th>Amount</th>
             <th>Source</th>
             <th>Destination</th>
-            <th>Project</th>
+            <th>Purpose</th>
             <th>Comments</th>
             <th>Created</th>
         </tr>
