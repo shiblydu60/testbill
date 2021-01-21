@@ -11,7 +11,7 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
+    <link rel="icon" href="../assets/images/originals/favicon.png">
     <link rel="stylesheet" href="../assets/css/base.min.css">
 
 </head>
@@ -26,28 +26,12 @@
                             <div class="slick-slider">
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
-                                        <div class="slide-img-bg" style="background-image: url('../assets/images/originals/city.jpg');"></div>
+                                        <div class="slide-img-bg" style="background-image: url('../assets/images/originals/bill.png');"></div>
                                         <div class="slider-content"><h3>Transport Bill Management</h3>
                                             {{-- <p>Transport Bill Management.</p> --}}
                                         </div>
                                     </div>
-                                </div>
-                                <div>
-                                    <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-premium-dark" tabindex="-1">
-                                        <div class="slide-img-bg" style="background-image: url('../assets/images/originals/citynights.jpg');"></div>
-                                        <div class="slider-content"><h3>Transport Bill Management</h3>
-                                            {{-- <p>Transport Bill Management.</p> --}}
-                                        </div>
-                                    </div>
-                                </div>
-                                <div>
-                                    <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-sunny-morning" tabindex="-1">
-                                        <div class="slide-img-bg" style="background-image: url('../assets/images/originals/citydark.jpg');"></div>
-                                        <div class="slider-content"><h3>Transport Bill Management</h3>
-                                            {{-- <p>Transport Bill Management.</p> --}}
-                                        </div>
-                                    </div>
-                                </div>
+                                </div>                                
                             </div>
                         </div>
                     </div>

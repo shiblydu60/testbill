@@ -13,6 +13,8 @@
         <!-- Disable tap highlight on IE -->
         <meta name="msapplication-tap-highlight" content="no">
     
+        <link rel="icon" href="../assets/images/originals/favicon.png">
+
         <link rel="stylesheet" href="/assets/css/base.min.css">
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     </head>
