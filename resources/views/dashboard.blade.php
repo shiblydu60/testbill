@@ -67,6 +67,7 @@
             <th>Destination</th>
             <th>Purpose</th>
             <th>Comments</th>
+            <th>Status</th>
             <th>Created</th>
         </tr>
     </thead>
@@ -81,6 +82,19 @@
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                    <td>
+                        <?php
+                            if($bill->status==1) {
+                                echo 'Approved';
+                            }
+                            else if($bill->status==2) {
+                                echo 'Rejected';
+                            }
+                            else {
+                                echo $bill->status;
+                            }
+                        ?>
+                    </td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
@@ -89,7 +103,7 @@
 </table>
 @endif
 
-@if(Auth::user()->hasRole('superadmin'))
+@if(Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
 <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
     <thead>
         <tr role="row">
@@ -99,6 +113,7 @@
             <th>Destination</th>
             <th>Purpose</th>
             <th>Comments</th>
+            <th>Status</th>
             <th>Created</th>
         </tr>
     </thead>
@@ -113,6 +128,19 @@
                     <td> {{ $bill->destination }}</td>
                     <td> {{ $bill->project->name }}</td>
                     <td> {{ \Illuminate\Support\Str::limit($bill->comment, 200, $end='...') }} </td>
+                    <td>
+                        <?php
+                            if($bill->status==1) {
+                                echo 'Approved';
+                            }
+                            else if($bill->status==2) {
+                                echo 'Rejected';
+                            }
+                            else {
+                                echo $bill->status;
+                            }
+                        ?>
+                    </td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
