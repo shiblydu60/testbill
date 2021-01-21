@@ -39,7 +39,7 @@
                                 if($bill->status==1) {
                                     echo 'Approved';
                                 }
-                                if($bill->status==2) {
+                                else if($bill->status==2) {
                                     echo 'Rejected';
                                 }
                                 else {
