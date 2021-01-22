@@ -50,7 +50,7 @@ class UserController extends Controller
         $aid=Auth::id();
         //dd($auser->roles->first()->name);
         if ($auser->roles->first()->name=='superadmin' || $auser->roles->first()->name=='accounts') {
-            $weekBill=Bill::with(['project'])->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+            $weekBill=Bill::with(['project'])->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
             foreach ($weekBill as $w) {
                 if ($w->project->isdeleted==0) {
@@ -58,7 +58,7 @@ class UserController extends Controller
                 }
             }
             //dd($sumWeek);
-            $monthBill=Bill::with(['project'])->whereMonth('bill_date', date('m'))->get();
+            $monthBill=Bill::with(['project'])->where('status','=','1')->whereMonth('bill_date', date('m'))->get();
             $sumMonth=0;
             foreach ($monthBill as $m) {
                 if ($m->project->isdeleted==0) {
@@ -66,7 +66,7 @@ class UserController extends Controller
                 }
             }
             //$yearBill=Bill::whereYear('bill_date', date('Y'))->sum('amount');
-            $yearBill=Bill::with(['project'])->whereYear('bill_date', date('Y'))->get();
+            $yearBill=Bill::with(['project'])->where('status','=','1')->whereYear('bill_date', date('Y'))->get();
             $sumYear=0;
             foreach ($yearBill as $y) {
                 if ($y->project->isdeleted==0) {
@@ -78,7 +78,7 @@ class UserController extends Controller
             return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills_admin'=>$daysBills_admin]);
         }
         if ($auser->roles->first()->name=='user') {
-            $weekBill=Bill::with(['project'])->where('user_id', '=', $aid)->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+            $weekBill=Bill::with(['project'])->where('user_id', '=', $aid)->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
             foreach ($weekBill as $w) {
                 if ($w->project->isdeleted==0) {
@@ -86,7 +86,7 @@ class UserController extends Controller
                 }
             }
             //dd($sumWeek);
-            $monthBill=Bill::with(['project'])->where('user_id', '=', $aid)->whereMonth('bill_date', date('m'))->get();
+            $monthBill=Bill::with(['project'])->where('user_id', '=', $aid)->where('status','=','1')->whereMonth('bill_date', date('m'))->get();
             $sumMonth=0;
             foreach ($monthBill as $m) {
                 if ($m->project->isdeleted==0) {
@@ -94,7 +94,7 @@ class UserController extends Controller
                 }
             }
             //$yearBill=Bill::whereYear('bill_date', date('Y'))->sum('amount');
-            $yearBill=Bill::with(['project'])->where('user_id', '=', $aid)->whereYear('bill_date', date('Y'))->get();
+            $yearBill=Bill::with(['project'])->where('user_id', '=', $aid)->where('status','=','1')->whereYear('bill_date', date('Y'))->get();
             $sumYear=0;
             foreach ($yearBill as $y) {
                 if ($y->project->isdeleted==0) {
