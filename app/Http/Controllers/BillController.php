@@ -177,8 +177,8 @@ class BillController extends Controller
         
         $projects=Project::all();
         $users=User::all();
-        //dd($request->all());           
-        
+        //dd($request->all());
+                
         if(!empty($request->input('billDate_from'))) {
             $billDate_from=$request->input('billDate_from');
             $date = new DateTime($billDate_from);
@@ -190,10 +190,11 @@ class BillController extends Controller
         if(!empty($request->input('billDate_to'))) {
             $billDate_to=$request->input('billDate_to');
             $date = new DateTime($billDate_to);
-            $d2=$date->format('Y-m-d H:i:s');            
+            $d2=$date->format('Y-m-d H:i:s');
         } else {
             $d2="";
-        }        
+        }
+        
         $userid=[];
         $userid=$request->input('userid');
         $projectid=[];

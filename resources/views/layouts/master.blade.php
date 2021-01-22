@@ -366,8 +366,9 @@
 
 <!--Datepickers-->
 <script src="/assets/js/vendors/form-components/datepicker.js"></script>
-<script src="/assets/js/vendors/form-components/daterangepicker.js"></script>
 <script src="/assets/js/vendors/form-components/moment.js"></script>
+<script src="/assets/js/vendors/form-components/daterangepicker.js"></script>
+
 <script src="/assets/js/scripts-init/form-components/datepicker.js"></script>
 
 <!--Multiselect-->

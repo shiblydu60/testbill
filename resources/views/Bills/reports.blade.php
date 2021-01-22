@@ -17,11 +17,11 @@
             <div class="form-row">
                 <div class="col-md-4">
                     <label for="billDate" class="">From date</label>
-                    <input name="billDate_from" id="billDate" placeholder="From Date" class="form-control w-50" type="text" data-toggle="datepicker" />
+                    <input name="billDate_from" id="billDate_from" placeholder="From Date" class="form-control w-50" type="text" data-toggle="datepicker" />
                 </div>
                 <div class="col-md-4">
                     <label for="billDate" class="">To date</label>
-                    <input name="billDate_to" id="billDate" placeholder="To Date" class="form-control w-50" type="text" data-toggle="datepicker" />
+                    <input name="billDate_to" id="billDate_to" placeholder="To Date" class="form-control w-50" type="text" data-toggle="datepicker" />
                 </div>
             </div>
             <label for="project" class="">Projects</label>
@@ -51,10 +51,12 @@
     </form>
     <script type="text/javascript">
         $(document).ready(function() {
+            
             $('[data-toggle="datepicker"]').datepicker({
                 endDate: new Date(),
                 autoHide: true
             });
+                        
         });
     </script>
 @endsection
