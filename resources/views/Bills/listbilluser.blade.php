@@ -14,6 +14,8 @@
                 <th>Comments</th>
                 <th>File</th>
                 <th>Status</th>
+                <th>Note for status</th>
+                <th>Approved at</th>
                 <th>Created</th>
             </tr>
         </thead>
@@ -47,6 +49,8 @@
                                 }
                             ?>
                         </td>
+                        <td> {{ $bill->note }}</td>
+                        <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     </tr>
                 @endif

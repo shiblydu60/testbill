@@ -68,6 +68,8 @@
             <th>Purpose</th>
             <th>Comments</th>
             <th>Status</th>
+            <th>Note for status</th>
+            <th>Approved at</th>
             <th>Created</th>
         </tr>
     </thead>
@@ -95,6 +97,8 @@
                             }
                         ?>
                     </td>
+                    <td> {{ $bill->note }}</td>
+                   <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
@@ -149,6 +153,8 @@
     </tbody>       
 </table>
 @endif  --}}
+
+@if(Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
 <h3>Approve or Reject bill</h3>
 <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
     <thead>
@@ -208,6 +214,7 @@
         @endforeach
     </tbody>       
  </table>
+@endif
 
 <script>
     $( document ).ready(function() {
