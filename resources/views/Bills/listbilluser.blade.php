@@ -15,7 +15,7 @@
                 <th>File</th>
                 <th>Status</th>
                 <th>Note for status</th>
-                <th>Approved at</th>
+                <th>Approved or Rejected at</th>
                 <th>Created</th>
             </tr>
         </thead>

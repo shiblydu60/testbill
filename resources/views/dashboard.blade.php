@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
 @section('heading', 'Welcome to Transport Bill Management')
+<?php //echo date_default_timezone_get(); ?>
 <div class="row">
     <div class="col-md-6 col-lg-3">
         <div class="widget-chart widget-chart2 text-left mb-3 card-btm-border card-shadow-primary border-primary card">
@@ -69,7 +70,7 @@
             <th>Comments</th>
             <th>Status</th>
             <th>Note for status</th>
-            <th>Approved at</th>
+            <th>Approved or Rejected at</th>
             <th>Created</th>
         </tr>
     </thead>
@@ -169,7 +170,7 @@
             <th>File</th>
             <th>Status</th>
             <th>Note for status</th>
-            <th>Approved at</th>
+            <th>Rejected at</th>
             <th>Created</th>            
             <th>Action</th>
         </tr>
@@ -208,7 +209,13 @@
                    <td> {{ $bill->note }}</td>
                    <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
-                    <td> <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp<a href="/bills/{{ $bill->id }}/rejectform">Reject</a></td>
+                    <td>
+                        @if($bill->status==1)
+                            <a href="/bills/{{ $bill->id }}/rejectform">Reject</a>
+                        @else
+                            <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp
+                        @endif
+                    </td>
                 </tr>
             @endif
         @endforeach
