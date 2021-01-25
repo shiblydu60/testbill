@@ -49,6 +49,8 @@ class UserController extends Controller
         $auser=Auth::user();
         $aid=Auth::id();
         //dd($auser->roles->first()->name);
+        $bills=Bill::with(['user', 'project'])->where('status','=', null)->get();
+        //dd($bills);
         if ($auser->roles->first()->name=='superadmin' || $auser->roles->first()->name=='accounts') {
             $weekBill=Bill::with(['project'])->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
@@ -75,7 +77,7 @@ class UserController extends Controller
             }
             $daysBills_admin=Bill::with(['user', 'project'])->where('status','=','1')->orderBy('bill_date', 'DESC')->limit(3)->get();
             //dd($daysBills);
-            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills_admin'=>$daysBills_admin]);
+            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills_admin'=>$daysBills_admin, 'bills'=>$bills]);
         }
         if ($auser->roles->first()->name=='user') {
             $weekBill=Bill::with(['project'])->where('user_id', '=', $aid)->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
@@ -103,7 +105,7 @@ class UserController extends Controller
             }
             $daysBills=Bill::with(['user', 'project'])->where('user_id', '=', $aid)->where('status','=','1')->orderBy('bill_date', 'DESC')->limit(3)->get();
             //dd($daysBills);
-            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills'=>$daysBills]);
+            return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills'=>$daysBills, 'bills'=>$bills]);
         }
         
     }
