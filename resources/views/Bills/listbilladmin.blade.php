@@ -53,7 +53,11 @@
                             ?>
                         </td>
                         <td> {{ $bill->note }}</td>
-                        <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
+                        <td> 
+                            @if($bill->monitored_at != null)
+                                {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}
+                            @endif
+                        </td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                         <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                     </tr>
