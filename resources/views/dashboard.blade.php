@@ -162,7 +162,8 @@
             <th>File</th>
             <th>Status</th>
             <th>Note for status</th>
-            <th>Created</th>
+            <th>Approved at</th>
+            <th>Created</th>            
             <th>Action</th>
         </tr>
     </thead>
@@ -198,6 +199,7 @@
                       ?>
                    </td>
                    <td> {{ $bill->note }}</td>
+                   <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     <td> <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp<a href="/bills/{{ $bill->id }}/rejectform">Reject</a></td>
                 </tr>
