@@ -57,7 +57,7 @@
         </div>
     </div>
 </div>
-{{--  @if(Auth::user()->hasRole('user'))
+  @if(Auth::user()->hasRole('user'))
 <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
     <thead>
         <tr role="row">
@@ -103,6 +103,7 @@
 </table>
 @endif
 
+{{--
 @if(Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
 <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
     <thead>
