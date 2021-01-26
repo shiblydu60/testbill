@@ -3,6 +3,13 @@
 @section('heading', 'Reject Bill')
 @section('content')
 
+    <div>Bill Date: {{ Carbon\Carbon::parse($bill->bill_date)->format('D M d, Y') }}</div>
+    <div>Amount: {{ $bill->amount }}</div>
+    <div>Source: {{ $bill->source }}</div>
+    <div>Destination: {{ $bill->destination }}</div>
+    <div>Purpose: {{ $bill->project->name }}</div>
+    <div>Comment: {{ $bill->comment }}</div>
+
     <form class="" method="POST" action="/bills/{{ $bill->id }}/rejectbill" >
         @csrf
         
