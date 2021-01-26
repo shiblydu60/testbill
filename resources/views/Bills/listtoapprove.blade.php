@@ -64,7 +64,9 @@
             @endif
         @endforeach
     </tbody>       
- </table>            
+ </table>
+ 
+ @if(count($bills)>0)
  <form class="" method="POST" action="/approveatonce<?php echo $params; ?>" >    
     @csrf
     <div class="position-relative form-group">
@@ -74,4 +76,5 @@
     <button class="mt-1 btn btn-primary">Approve all</button>
     </div>
 </form>
+@endif
 @endsection
