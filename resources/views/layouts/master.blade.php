@@ -276,7 +276,24 @@
                                             <i class="metismenu-icon">
                                             </i>Approve or Reject
                                         </a>
-                                    </li>                                    
+                                    </li>
+                                </ul>
+                            </li>
+                            @endif
+
+                            @if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
+                            <li class="mm-active">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-note2"></i>                                    
+                                    Advance Approval
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="/searchtoapproveform">
+                                            <i class="metismenu-icon">
+                                            </i>Search to Approve
+                                        </a>
+                                    </li>
                                 </ul>
                             </li>
                             @endif

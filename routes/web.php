@@ -51,6 +51,9 @@ Route::group(['middleware' => ['role:superadmin|accounts']], function () {
     Route::post('/bills/{id}/approvebill', [BillController::class, 'approvebill'])->name('approvebill')->middleware('auth');
     Route::get('/bills/{id}/rejectform', [BillController::class, 'rejectform'])->name('rejectform')->middleware('auth');
     Route::post('/bills/{id}/rejectbill', [BillController::class, 'rejectbill'])->name('rejectbill')->middleware('auth');
+    Route::get('/searchtoapproveform', [BillController::class, 'searchtoapproveform'])->name('searchtoapproveform')->middleware('auth');
+    Route::post('/listtoapprove', [BillController::class, 'listtoapprove'])->name('listtoapprove')->middleware('auth');
+    Route::post('/approveatonce', [BillController::class, 'approveatonce'])->name('approveatonce')->middleware('auth');
 });
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');

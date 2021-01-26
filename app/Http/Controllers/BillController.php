@@ -566,4 +566,49 @@ class BillController extends Controller
         $request->session()->flash('message', 'Bill rejected successfully.');
         return redirect()->intended('/monitorbill');
     }
+
+    public function searchtoapproveform() {
+        $projects=Project::all();
+        $users=User::all();
+        $bills = DB::table('transport_bills')->paginate(15);
+        return view('Bills.searchtoapproveform', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);        
+    }
+
+    public function listtoapprove(Request $request) {
+        if(!empty($request->input('billDate_from'))) {
+            $billDate_from=$request->input('billDate_from');
+            $date = new DateTime($billDate_from);
+            $d1=$date->format('Y-m-d H:i:s');            
+        } else {
+            $d1="";
+        }
+        
+        if(!empty($request->input('billDate_to'))) {
+            $billDate_to=$request->input('billDate_to');
+            $date = new DateTime($billDate_to);
+            $d2=$date->format('Y-m-d H:i:s');            
+        } else {
+            $d2="";
+        }
+        $userid=$request->input('userid');
+        //dd($request->all());
+        $bills = Bill::with(['user', 'project'])->whereNull('status')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        //dd($bills);
+        $params="?billDate_from=$d1&billDate_to=$d2&userid=$userid";
+        return view('Bills.listtoapprove', ['bills'=>$bills,'params'=>$params]);
+    }
+
+    public function approveatonce(Request $request) {
+        $d1=$request->input('billDate_from');
+        $d2=$request->input('billDate_to');
+        $userid=$request->input('userid');
+        $aid=Auth::id();
+        //dd(Auth::user()->first_name);
+        $auser=Auth::user()->first_name . Auth::user()->last_name;
+        $note=$request->input('note');
+        Bill::whereNull('status')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->update(['status'=>1, 'note'=>$note, 'monitored_by'=>$auser, 'monitored_at'=>Carbon::now()]);
+        $request->session()->flash('message', 'Bill approved successfully.');
+        return redirect()->intended('/monitorbill');
+        //dd($userid);
+    }
 }
