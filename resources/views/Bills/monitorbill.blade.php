@@ -60,11 +60,8 @@
                     </td>
                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                    <td>
-                       @if($bill->status==1)
-                        @else 
-                            <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp
-                            <a href="/bills/{{ $bill->id }}/rejectform">Reject</a>
-                        @endif
+                        <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp
+                        <a href="/bills/{{ $bill->id }}/rejectform">Reject</a>                      
                     </td>
                </tr>
            @endif

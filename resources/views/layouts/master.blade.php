@@ -236,10 +236,10 @@
                                 <ul>
                                     <li>
                                         @if (Auth::user()->hasRole('superadmin'))
-                                            <a href="/listbilladmin"><i class="metismenu-icon"></i>List Bill</a>
-                                            <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>                                            
+                                            <a href="/listbilladmin"><i class="metismenu-icon"></i>Self bill management</a>
+                                            <a href="/addbilladmin"><i class="metismenu-icon"></i>Add Bill</a>                                   
                                         @else
-                                            <a href="/listbilluser"><i class="metismenu-icon"></i>List Bill</a>
+                                            <a href="/listbilluser"><i class="metismenu-icon"></i>Self bill management</a>
                                             <a href="/addbill"><i class="metismenu-icon"></i>Add Bill</a>                                            
                                         @endif
                                     </li>                                    
@@ -249,15 +249,15 @@
                             <li class="mm-active">
                                 <a href="#">
                                     <i class="metismenu-icon pe-7s-note2"></i>
-                                    Reports
+                                    Bill Reports
                                     
                                 </a>
                                 <ul>
                                     <li>
                                         @if (Auth::user()->hasRole('superadmin'))
-                                            <a href="/reports"><i class="metismenu-icon"></i>Reports</a>
+                                            <a href="/reports"><i class="metismenu-icon"></i>Self bill reports</a>
                                         @else
-                                            <a href="/reportsuser"><i class="metismenu-icon"></i>Reports</a>
+                                            <a href="/reportsuser"><i class="metismenu-icon"></i>Self bill reports</a>
                                         @endif
                                         
                                     </li>
@@ -291,7 +291,7 @@
                                     <li>
                                         <a href="/searchtoapproveform">
                                             <i class="metismenu-icon">
-                                            </i>Search to Approve
+                                            </i>Search for approval
                                         </a>
                                     </li>
                                 </ul>
