@@ -20,8 +20,7 @@
                 <th>Comments</th>
                 <th>File</th>
                 <th>Status</th>
-                <th>Created</th>
-                <th>Action</th>
+                <th>Created</th>                
             </tr>
         </thead>
         <tbody>
@@ -59,7 +58,6 @@
                             ?>
                         </td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
-                        <td><a href="/bills/{{ $bill->id }}/edit">Edit</a></td>
                     </tr>
                     <?php $cnt=$cnt+1; ?>
                 @endif
