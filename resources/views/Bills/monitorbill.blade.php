@@ -6,19 +6,19 @@
 <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example">
    <thead>
        <tr role="row">
-           <th>Bill Date</th>                
-           <th>Name</th>
-           <th>Amount</th>
-           <th>Source</th>
-           <th>Destination</th>
-           <th>Purpose</th>
-           <th>Comments</th>
-           <th>File</th>
-           <th>Status</th>
-           <th>Note for status</th>
-           <th>Approved at</th>
-           <th>Created</th>
-           <th>Action</th>
+            <th>Bill Date</th>                
+            <th>Name</th>
+            <th>Amount</th>
+            <th>Source</th>
+            <th>Destination</th>
+            <th>Purpose</th>
+            <th>Comments</th>
+            <th>File</th>
+            <th>Accountant approval</th>
+            <th>Management approval</th>
+            <th>Final approval date</th>
+            <th>Created</th>
+            <th>Action</th>
        </tr>
    </thead>
    <tbody>
