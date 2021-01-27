@@ -263,6 +263,19 @@
                                     </li>
                                 </ul>
                             </li>
+
+                            <li class="mm-active">
+                                <a href="#">
+                                    <i class="metismenu-icon pe-7s-note2"></i>
+                                    Monthly Bill Reports
+                                    
+                                </a>
+                                <ul>
+                                    <li>
+                                        <a href="/monthlyreportform"><i class="metismenu-icon"></i>Monthly bill reports</a>
+                                    </li>
+                                </ul>
+                            </li>
                             
                             @if (Auth::user()->hasRole('superadmin') || Auth::user()->hasRole('accounts'))
                             <li class="mm-active">

@@ -611,4 +611,25 @@ class BillController extends Controller
         return redirect()->intended('/monitorbill');
         //dd($userid);
     }
+
+    public function monthlyreportform() {
+        return view('Bills.monthlyreportform');
+    }
+
+    public function monthlyreport(Request $request) {
+        $month=$request->input('month');
+        $curr_year=now()->year;
+        $d1="$curr_year-$month-01";
+        $d2=Carbon::parse($d1)->endOfMonth()->toDateString();
+        $bills = Bill::with(['user', 'project'])->where('status','=','1')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        //dd($bills);
+        //dd($request->all());
+        $sum=0;
+        foreach($bills as $b) {
+            if($b->project->isdeleted==0) {
+                $sum=$sum + $b->amount;
+            }            
+        }
+        return view('Bills.monthlyreport', ['bills' => $bills, 'sum'=>$sum]);
+    }
 }
