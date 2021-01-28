@@ -39,7 +39,8 @@
                         $pieces = explode("/", $bill->file_location);
                         $filename=$pieces[count($pieces)-1];
                     ?>
-                    <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2 " data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td>
+                    {{-- <td><a id="id_btn_file" href="{{ $bill->file_location }}" class="cl_btn_file mr-2 mb-2 " data-toggle="modal" data-target=".bd-example-modal-lg">{{ $filename }}</a></td> --}}
+                    <td><a id="id_btn_file" href="/storage/uploads/<?php echo $filename; ?>" class="cl_btn_file mr-2 mb-2 ">{{ $filename }}</a></td>
                     <td>
                       <?php
                           if($bill->status==1) {
