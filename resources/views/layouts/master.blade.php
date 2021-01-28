@@ -527,7 +527,7 @@
 
             <div class="modal-body">
                 <p style="text-align: center;">
-                    <img id="id_img_file" src="" />
+                    <img class="img-fluid" id="id_img_file" src="" />
                 </p>                
             </div>
 
