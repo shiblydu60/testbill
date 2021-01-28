@@ -14,9 +14,9 @@
                 <th>Purpose</th>
                 <th>Comments</th>
                 <th>File</th>
-                <th>Status</th>
-                <th>Note for status</th>
-                <th>Approved or Rejected at</th>
+                <th>Accountant approval</th>
+                <th>Management approval</th>
+                <th>Final approval date</th>
                 <th>Created</th>
                 <th>Action</th>
             </tr>

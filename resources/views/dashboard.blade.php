@@ -71,6 +71,7 @@
             <th>Accountant approval</th>
             <th>Management approval</th>
             <th>Final approval date</th>
+            <th>Approved by</th>
             <th>Created</th>
         </tr>
     </thead>
@@ -100,6 +101,7 @@
                     </td>
                     <td> {{ $bill->note }}</td>
                    <td> {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}</td>
+                   <td> {{ $bill->monitored_by }} </td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                 </tr>
             @endif
@@ -171,6 +173,7 @@
             <th>Accountant approval</th>
             <th>Management approval</th>
             <th>Final approval date</th>
+            <th>Approved by</th>
             <th>Created</th>            
             <th>Action</th>
         </tr>
@@ -212,6 +215,7 @@
                             {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}
                         @endif
                     </td>
+                    <td>{{ $bill->monitored_by }}</td>
                     <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     <td>
                             <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp

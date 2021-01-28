@@ -165,6 +165,7 @@
                 <div class="scrollbar-sidebar">
                     <div class="app-sidebar__inner">
                         <ul class="vertical-nav-menu">
+
                             <li class="app-sidebar__heading">Home</li>
                             <li class="mm-active" >
                                 <a href="/dashboard">
@@ -172,12 +173,11 @@
                                     Dashboard                                    
                                 </a>
                             </li>
+                            
                             <li class="app-sidebar__heading">Menu</li>
                             
                             <?php 
-                                if(Auth::user()->hasRole('superadmin')) {
-
-                                
+                                if(Auth::user()->hasRole('superadmin')) {                                
                             ?>
                             <li class="mm-active" >
                                 <a href="#">
