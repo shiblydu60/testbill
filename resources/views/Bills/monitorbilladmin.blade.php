@@ -73,8 +73,8 @@
                     
                    <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                    <td>
-                        <a href="/bills/{{ $bill->id }}/approveform">Approve</a>&nbsp
-                        <a href="/bills/{{ $bill->id }}/rejectform">Reject</a>                      
+                        <a href="/bills/{{ $bill->id }}/approveformadmin">Approve</a>&nbsp
+                        <a href="/bills/{{ $bill->id }}/rejectformadmin">Reject</a>
                     </td>
                </tr>
            @endif

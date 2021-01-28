@@ -43,10 +43,24 @@ Route::group(['middleware' => ['role:superadmin']], function () {
     Route::get('/projects/{id}/delete', [ProjectController::class, 'delete'])->name('deleteproject')->middleware('auth');
     Route::get('/listbilladmin', [BillController::class, 'listbilladmin'])->name('listbilladmin')->middleware('auth');
     Route::get('/exporttofileadmin', [BillController::class, 'exporttofileadmin'])->name('exporttofileadmin')->middleware('auth');
-    
+    Route::get('/bills/{id}/approveformadmin', [BillController::class, 'approveformadmin'])->name('approveformadmin')->middleware('auth');
+    Route::post('/bills/{id}/approvebilladmin', [BillController::class, 'approvebilladmin'])->name('approvebilladmin')->middleware('auth');
+    Route::get('/monitorbilladmin', [BillController::class, 'monitorbilladmin'])->name('monitorbilladmin')->middleware('auth');
+    Route::get('/bills/{id}/rejectformadmin', [BillController::class, 'rejectformadmin'])->name('rejectformadmin')->middleware('auth');
+    Route::post('/bills/{id}/rejectbilladmin', [BillController::class, 'rejectbilladmin'])->name('rejectbilladmin')->middleware('auth');
+    Route::get('/searchtoapproveformadmin', [BillController::class, 'searchtoapproveformadmin'])->name('searchtoapproveformadmin')->middleware('auth');
+    Route::post('/listtoapproveadmin', [BillController::class, 'listtoapproveadmin'])->name('listtoapproveadmin')->middleware('auth');
+    Route::post('/approveatonceadmin', [BillController::class, 'approveatonceadmin'])->name('approveatonceadmin')->middleware('auth');
 });
 
-Route::group(['middleware' => ['role:superadmin|accounts']], function () {
+Route::group(['middleware' => ['role:superadmin|accounts']], function () {    
+        
+    
+    Route::get('/monthlyreportform', [BillController::class, 'monthlyreportform'])->name('monthlyreportform')->middleware('auth');
+    Route::post('/monthlyreport', [BillController::class, 'monthlyreport'])->name('monthlyreport')->middleware('auth');
+});
+
+Route::group(['middleware' => ['role:accounts']], function () {
     Route::get('/monitorbill', [BillController::class, 'monitorbill'])->name('monitorbill')->middleware('auth');
     Route::get('/bills/{id}/approveform', [BillController::class, 'approveform'])->name('approveform')->middleware('auth');
     Route::post('/bills/{id}/approvebill', [BillController::class, 'approvebill'])->name('approvebill')->middleware('auth');
@@ -55,8 +69,6 @@ Route::group(['middleware' => ['role:superadmin|accounts']], function () {
     Route::get('/searchtoapproveform', [BillController::class, 'searchtoapproveform'])->name('searchtoapproveform')->middleware('auth');
     Route::post('/listtoapprove', [BillController::class, 'listtoapprove'])->name('listtoapprove')->middleware('auth');
     Route::post('/approveatonce', [BillController::class, 'approveatonce'])->name('approveatonce')->middleware('auth');
-    Route::get('/monthlyreportform', [BillController::class, 'monthlyreportform'])->name('monthlyreportform')->middleware('auth');
-    Route::post('/monthlyreport', [BillController::class, 'monthlyreport'])->name('monthlyreport')->middleware('auth');
 });
 
 Route::get('/addbill', [BillController::class, 'addbill'])->name('addbill')->middleware('auth');

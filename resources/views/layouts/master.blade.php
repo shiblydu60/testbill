@@ -286,12 +286,23 @@
                                     Approval Management
                                 </a>
                                 <ul>
+                                    @if(Auth::user()->hasRole('superadmin'))
+                                    <li>
+                                        <a href="/monitorbilladmin">
+                                            <i class="metismenu-icon">
+                                            </i>Approve or Reject
+                                        </a>
+                                    </li>
+                                    @endif
+
+                                    @if(Auth::user()->hasRole('accounts'))
                                     <li>
                                         <a href="/monitorbill">
                                             <i class="metismenu-icon">
                                             </i>Approve or Reject
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
                             @endif
@@ -303,12 +314,23 @@
                                     Advance Approval
                                 </a>
                                 <ul>
+                                    @if(Auth::user()->hasRole('superadmin'))
+                                    <li>
+                                        <a href="/searchtoapproveformadmin">
+                                            <i class="metismenu-icon">
+                                            </i>Search for approval
+                                        </a>
+                                    </li>
+                                    @endif
+
+                                    @if(Auth::user()->hasRole('accounts'))
                                     <li>
                                         <a href="/searchtoapproveform">
                                             <i class="metismenu-icon">
                                             </i>Search for approval
                                         </a>
                                     </li>
+                                    @endif
                                 </ul>
                             </li>
                             @endif

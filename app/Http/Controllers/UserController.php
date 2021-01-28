@@ -49,9 +49,15 @@ class UserController extends Controller
         $auser=Auth::user();
         $aid=Auth::id();
         //dd($auser->roles->first()->name);
-        $bills=Bill::with(['user', 'project'])->whereNull('status')->orWhereIn('status',['2'])->get();
+        
         //dd($bills);
         if ($auser->roles->first()->name=='superadmin' || $auser->roles->first()->name=='accounts') {
+            if($auser->roles->first()->name=='superadmin') {
+                $bills=Bill::with(['user', 'project'])->whereIn('status',['1'])->get();
+            }
+            if($auser->roles->first()->name=='accounts') {
+                $bills=Bill::with(['user', 'project'])->whereNull('status')->get();
+            }            
             $weekBill=Bill::with(['project'])->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
             foreach ($weekBill as $w) {
@@ -79,7 +85,10 @@ class UserController extends Controller
             //dd($daysBills);
             return view('dashboard', ['weekBill'=>$sumWeek,'monthBill'=>$sumMonth, 'yearBill'=>$sumYear, 'daysBills_admin'=>$daysBills_admin, 'bills'=>$bills]);
         }
+
+        
         if ($auser->roles->first()->name=='user') {
+            $bills=Bill::with(['user', 'project'])->whereNull('status')->orWhereIn('status',['2'])->get();
             $weekBill=Bill::with(['project'])->where('user_id', '=', $aid)->where('status','=','1')->whereBetween('bill_date', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
             $sumWeek=0;
             foreach ($weekBill as $w) {

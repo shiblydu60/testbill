@@ -528,6 +528,33 @@ class BillController extends Controller
         return view('Bills.monitorbill', ['bills'=>$bills]);
     }
 
+    public function monitorbilladmin() {
+        $bills=Bill::with(['user', 'project'])->where('status','1')->orderBy('bill_date')->get();
+        //dd($bills);
+        return view('Bills.monitorbilladmin', ['bills'=>$bills]);
+    }
+
+    public function approveformadmin($id) {
+        //dd($id);
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+        return view('Bills.approveformadmin', ['bill'=>$bill]);
+    }
+
+    public function approvebilladmin(Request $request, $id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+
+        //dd($request->all());
+        //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
+        $bill->monitored_by=Auth::id();
+        $bill->superadmin_status=1;
+        $bill->superadmin_note=$request->input('note');
+        $bill->superadmin_monitored_at=Carbon::now();
+        $bill->save();
+        $request->session()->flash('message', 'Bill approved successfully.');
+        return redirect()->intended('/monitorbilladmin');
+    }
+
+
     public function approveform($id) {
         //dd($id);
         $bill=Bill::with(['project', 'user'])->findOrFail($id);
@@ -539,13 +566,32 @@ class BillController extends Controller
 
         //dd($request->all());
         //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
-        $bill->monitored_by=Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $bill->monitored_by=Auth::id();
         $bill->status=1;
         $bill->note=$request->input('note');
         $bill->monitored_at=Carbon::now();
         $bill->save();
         $request->session()->flash('message', 'Bill approved successfully.');
         return redirect()->intended('/monitorbill');
+    }
+
+    public function rejectformadmin($id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+        return view('Bills.rejectformadmin', ['bill'=>$bill]);
+    }
+
+    public function rejectbilladmin(Request $request, $id) {
+        $bill=Bill::with(['project', 'user'])->findOrFail($id);
+
+        //dd($request->all());
+        //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
+        $bill->monitored_by=Auth::id();
+        $bill->superadmin_status=2;
+        $bill->superadmin_note=$request->input('note');
+        $bill->superadmin_monitored_at=Carbon::now();
+        $bill->save();
+        $request->session()->flash('message', 'Bill rejected successfully.');
+        return redirect()->intended('/monitorbilladmin');
     }
 
     public function rejectform($id) {
@@ -558,7 +604,7 @@ class BillController extends Controller
 
         //dd($request->all());
         //dd(Auth::user()->first_name . ' ' . Auth::user()->last_name);
-        $bill->monitored_by=Auth::user()->first_name . ' ' . Auth::user()->last_name;
+        $bill->monitored_by=Auth::id();
         $bill->status=2;
         $bill->note=$request->input('note');
         $bill->monitored_at=Carbon::now();
@@ -572,6 +618,14 @@ class BillController extends Controller
         $users=User::all();
         $bills = DB::table('transport_bills')->paginate(15);
         return view('Bills.searchtoapproveform', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);        
+    }
+
+    
+    public function searchtoapproveformadmin() {
+        $projects=Project::all();
+        $users=User::all();
+        $bills = DB::table('transport_bills')->paginate(15);
+        return view('Bills.searchtoapproveformadmin', ['bills'=>$bills, 'projects'=>$projects, 'users'=>$users]);        
     }
 
     public function listtoapprove(Request $request) {
@@ -598,17 +652,57 @@ class BillController extends Controller
         return view('Bills.listtoapprove', ['bills'=>$bills,'params'=>$params]);
     }
 
+    public function listtoapproveadmin(Request $request) {
+        if(!empty($request->input('billDate_from'))) {
+            $billDate_from=$request->input('billDate_from');
+            $date = new DateTime($billDate_from);
+            $d1=$date->format('Y-m-d H:i:s');            
+        } else {
+            $d1="";
+        }
+        
+        if(!empty($request->input('billDate_to'))) {
+            $billDate_to=$request->input('billDate_to');
+            $date = new DateTime($billDate_to);
+            $d2=$date->format('Y-m-d H:i:s');            
+        } else {
+            $d2="";
+        }
+        $userid=$request->input('userid');
+        //dd($request->all());
+        $bills = Bill::with(['user', 'project'])->where('status','=','1')->whereNull('superadmin_status')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        //dd($bills);
+        $params="?billDate_from=$d1&billDate_to=$d2&userid=$userid";
+        return view('Bills.listtoapproveadmin', ['bills'=>$bills,'params'=>$params]);
+    }
+
     public function approveatonce(Request $request) {
         $d1=$request->input('billDate_from');
         $d2=$request->input('billDate_to');
         $userid=$request->input('userid');
         $aid=Auth::id();
         //dd(Auth::user()->first_name);
-        $auser=Auth::user()->first_name . Auth::user()->last_name;
+        //$auser=Auth::user()->first_name . Auth::user()->last_name;
+        $auser=Auth::id();
         $note=$request->input('note');
         Bill::whereNull('status')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->update(['status'=>1, 'note'=>$note, 'monitored_by'=>$auser, 'monitored_at'=>Carbon::now()]);
         $request->session()->flash('message', 'Bill approved successfully.');
         return redirect()->intended('/monitorbill');
+        //dd($userid);
+    }
+
+    public function approveatonceadmin(Request $request) {
+        $d1=$request->input('billDate_from');
+        $d2=$request->input('billDate_to');
+        $userid=$request->input('userid');
+        $aid=Auth::id();
+        //dd(Auth::user()->first_name);
+        //$auser=Auth::user()->first_name . Auth::user()->last_name;
+        $auser=Auth::id();
+        $note=$request->input('note');
+        Bill::where('status','=','1')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->update(['superadmin_status'=>1, 'superadmin_note'=>$note, 'monitored_by'=>$auser, 'superadmin_monitored_at'=>Carbon::now()]);
+        $request->session()->flash('message', 'Bill approved successfully.');
+        return redirect()->intended('/monitorbilladmin');
         //dd($userid);
     }
 
