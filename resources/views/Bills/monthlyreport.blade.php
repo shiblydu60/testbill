@@ -6,7 +6,7 @@
     @if(count($bills)==0)
         <h2>There is no record.</h2>
     @endif
-    {{-- <a href="/exporttofileadmin<?php echo $anc; ?>" class="float-right">Export to CSV</a> --}}
+    <a href="/exporttofilemonth<?php echo $anc; ?>" class="float-right">Export to CSV</a>
     <table style="width: 100%;" class="table table-hover table-striped table-bordered" id="example3">
         <thead>
             <tr role="row">

@@ -55,9 +55,9 @@ Route::group(['middleware' => ['role:superadmin']], function () {
 
 Route::group(['middleware' => ['role:superadmin|accounts']], function () {    
         
-    
     Route::get('/monthlyreportform', [BillController::class, 'monthlyreportform'])->name('monthlyreportform')->middleware('auth');
     Route::post('/monthlyreport', [BillController::class, 'monthlyreport'])->name('monthlyreport')->middleware('auth');
+    Route::get('/exporttofilemonth', [BillController::class, 'exporttofilemonth'])->name('exporttofilemonth')->middleware('auth');
 });
 
 Route::group(['middleware' => ['role:accounts']], function () {

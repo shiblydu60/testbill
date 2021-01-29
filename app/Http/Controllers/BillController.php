@@ -428,7 +428,7 @@ class BillController extends Controller
             fclose($file);
         };
 
-        return response()->stream($callback, 200, $headers);        
+        return response()->stream($callback, 200, $headers);
     }
 
     public function exporttofileuser(Request $request) {
@@ -727,6 +727,79 @@ class BillController extends Controller
                 $sum=$sum + $b->amount;
             }            
         }
-        return view('Bills.monthlyreport', ['bills' => $bills, 'sum'=>$sum]);
+        $anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid;
+        return view('Bills.monthlyreport', ['bills' => $bills, 'sum'=>$sum, 'anc'=>$anc]);
     }
+
+    public function exporttofilemonth(Request $request) {
+        //$anc="?billDate_from=" . $d1 . "&billDate_to=" . $d2 . "&userid=" . $userid . "&projectid=" . $projectid;
+        //dd($request->all());
+        if (!empty($request->query('billDate_from'))) {
+            $billDate_from=$request->query('billDate_from');
+            $date = new DateTime($billDate_from);
+            $d1=$date->format('Y-m-d H:i:s');
+        } else {
+            $d1="";
+        }
+        if (!empty($request->query('billDate_to'))) {
+            $billDate_to=$request->query('billDate_to');
+            $date = new DateTime($billDate_to);
+            $d2=$date->format('Y-m-d H:i:s');
+        } else {
+            $d2="";
+        }
+
+        $aid=$request->query('userid');
+
+        if (!empty($request->query('billDate_from')) && !empty($request->query('billDate_to'))) {
+            $bills = Bill::with(['user', 'project'])->where('superadmin_status', '=', '1')->where('user_id', '=', $aid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        } else {
+            $bills = Bill::with(['user', 'project'])->where('superadmin_status', '=', '1')->where('user_id', '=', $aid)->get();
+        }
+        //dd($bills);
+        $fileName = 'report.csv';
+        $tasks = $bills;
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('bill_date', 'amount', 'source', 'destination', 'project', 'comment', 'created');
+
+        $callback = function () use ($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+            
+            foreach ($tasks as $task) {
+                if ($task->project->isdeleted==0) {
+                    $billDate_from=$task->bill_date;
+                    $date = new DateTime($billDate_from);
+                    $d1=$date->format('D M d, Y');
+            
+                    $row['bill_date']  = $d1;
+                    $row['amount']    = $task->amount;
+                    $row['source']    = $task->source;
+                    $row['destination']  = $task->destination;
+                    $row['project']  = $task->project->name;
+                    $row['comment'] = $task->comment;
+                
+                    $created_at=$task->created_at;
+                    $date = new DateTime($created_at);
+                    $d1=$date->format('D M d, Y');
+                    $row['created_at'] = $d1;
+                
+
+                    fputcsv($file, array($row['bill_date'], $row['amount'], $row['source'], $row['destination'], $row['project'], $row['comment'], $row['created_at']));
+                }
+            }
+
+            fclose($file);
+        };
+        return response()->stream($callback, 200, $headers);
+    }
+
 }
