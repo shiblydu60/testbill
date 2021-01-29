@@ -707,15 +707,18 @@ class BillController extends Controller
     }
 
     public function monthlyreportform() {
-        return view('Bills.monthlyreportform');
+        $users=User::all();
+        return view('Bills.monthlyreportform',['users'=>$users]);
     }
 
     public function monthlyreport(Request $request) {
         $month=$request->input('month');
+        $userid=$request->input('userid');
+        //dd($userid);
         $curr_year=now()->year;
         $d1="$curr_year-$month-01";
         $d2=Carbon::parse($d1)->endOfMonth()->toDateString();
-        $bills = Bill::with(['user', 'project'])->where('status','=','1')->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
+        $bills = Bill::with(['user', 'project'])->where('superadmin_status','=','1')->where('user_id','=',$userid)->where('bill_date', '>=', $d1)->where('bill_date', '<=', $d2)->get();
         //dd($bills);
         //dd($request->all());
         $sum=0;
