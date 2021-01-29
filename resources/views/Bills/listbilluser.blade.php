@@ -49,11 +49,23 @@
                                 }
                             ?>
                         </td>
-                        <td> {{ $bill->note }}</td>
+                        <td>
+                            <?php
+                                 if($bill->superadmin_status==1) {
+                                     echo 'Approved';
+                                 }
+                                 else if($bill->superadmin_status==2) {
+                                     echo 'Rejected';
+                                 }
+                                 else {
+                                     echo $bill->superadmin_status;
+                                 }
+                             ?>
+                        </td>
                         <td> 
-                            @if($bill->monitored_at != null)
-                                {{ Carbon\Carbon::parse($bill->monitored_at)->format('D M d, Y h:i:s') }}
-                            @endif
+                             @if($bill->superadmin_monitored_at != null) 
+                                 {{ Carbon\Carbon::parse($bill->superadmin_monitored_at)->format('D M d, Y h:i:s') }}
+                             @endif
                         </td>
                         <td> {{ Carbon\Carbon::parse($bill->created_at)->format('D M d, Y h:i:s') }}</td>
                     </tr>
