@@ -380,7 +380,7 @@ class BillController extends Controller
             $bills = Bill::with(['user', 'project'])->where('superadmin_status','=','1')->whereIn('project_id', $projectid)->get();
         }
         else {
-            $bills = Bill::with(['user', 'project'])->where('status','=','1')->get();
+            $bills = Bill::with(['user', 'project'])->where('superadmin_status','=','1')->get();
         }
         
         $fileName = 'report.csv';
