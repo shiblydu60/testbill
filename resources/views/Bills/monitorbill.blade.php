@@ -68,7 +68,7 @@
                 </td>
                   <td>
                     @if($bill->superadmin_monitored_at != null) 
-                      {{ Carbon\Carbon::parse($bill->superadmin_monitored_at)->format('D M d, Y h:i:s') }}
+                      {{ Carbon\Carbon::parse($bill->superadmin_monitored_at)->format('D M d, Y h:i:s A') }}
                     @endif
                     </td>
                     
