@@ -35,7 +35,7 @@ class ProjectController extends Controller
 
     public function listproject() {
         //$projects=Project::with(['bills'])->paginate(15);
-        $projects=DB::select("select * FROM projects INNER JOIN (SELECT project_id,SUM(amount) AS sumamount FROM transport_bills WHERE superadmin_status=1 GROUP BY project_id) AS tblsum ON projects.id=tblsum.project_id;");
+        $projects=DB::select("select * FROM projects LEFT JOIN (SELECT project_id,SUM(amount) AS sumamount FROM transport_bills WHERE superadmin_status=1 GROUP BY project_id) AS tblsum ON projects.id=tblsum.project_id;");
         //dd($projects);
         //$projects=Project::with(['bills'])->get()->first()->bills->sum('amount');
         return view('Projects.listproject', ['projects' => $projects]);
